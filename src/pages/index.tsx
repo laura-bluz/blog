@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
+
 import styles from './home.module.scss';
 
 interface Post {
@@ -24,13 +25,18 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-// export default function Home() {
-//   // TODO
-// }
+export default function Home(): JSX.Element {
+  return (
+    <>
+      <div className={styles.home}>
+        <h1>Home</h1>
+        <button type="button">Carregar mais posts</button>
+      </div>
+    </>
+  );
+}
 
 // export const getStaticProps = async () => {
-//   // const prismic = getPrismicClient({});
-//   // const postsResponse = await prismic.getByType(TODO);
-
-//   // TODO
+// const prismic = getPrismicClient({});
+// const postsResponse = await prismic.getByType(TODO);
 // };

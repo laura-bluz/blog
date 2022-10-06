@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>blog</title>
+        <title>Blog Space</title>
       </Head>
       <Component {...pageProps} />
     </>

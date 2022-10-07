@@ -24,7 +24,7 @@ export default function Post({ posts }: PostsProps): JSX.Element {
     <>
       <Head>
         <Image src="/public/Logo.svg" alt="logo" width="100px" height="100px" />
-        <title>Blog Space</title>
+        <title>Post | Blog Space</title>
       </Head>
 
       <main className={styles.container}>
@@ -58,7 +58,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts = response.results.map(post => {
     return {
       slug: post.uid,
-      // title: post.data.title,
       title: RichText.asText([
         { type: 'heading1', text: post.data.title, spans: [] },
       ]),

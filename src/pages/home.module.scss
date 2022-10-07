@@ -1,24 +1,45 @@
-.home {
+.contentContainer {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: calc(100vh - 5rem);
 
-  button {
-    // position: absolute;
-    width: 12rem;
-    // height: 22px;
-    // left: 368px;
-    // top: 966px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
+.hero {
+  max-width: 600px;
 
-    text-align: justify;
-
-    color: #FF57B2;
-
-    border: 1px solid #000000;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  > span {
+      font-size: 1.5rem;
+      font-weight: bold;
   }
 
+  h1 {
+      font-size: 4.5rem;
+      line-height: 4.5rem;
+      font-weight: 900;
+      margin-top: 2.5rem;
+
+      span {
+          color: var(--cyan-500);
+      }
+  }
+
+  p {
+      font-size: 1.5rem;
+      line-height: 2.25rem;
+      margin-top: 1.5rem;
+
+      span {
+          color: var(--cyan-500);
+          font-weight: bold;
+      }
+  }
+
+  button {
+      margin-top: 2.5rem;
+  }
 }

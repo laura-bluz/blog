@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
-
 import { RichText } from 'prismic-dom';
+import logo from '../../../public/logo.svg';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 
@@ -23,11 +23,11 @@ export default function Post({ posts }: PostsProps): JSX.Element {
   return (
     <>
       <Head>
-        <Image src="/public/Logo.svg" alt="logo" width="100px" height="100px" />
         <title>Post | Blog Space</title>
       </Head>
 
       <main className={styles.container}>
+        <Image src={logo} className="logo" alt="logo" width={100} height={20} />
         <div className={styles.posts}>
           {posts.map(post => (
             <Link href={`/post/${post.slug}`} key={post.slug}>

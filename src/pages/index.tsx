@@ -32,7 +32,14 @@ export default function Home(props: PostPagination): JSX.Element {
     <>
       <div className={styles.home}>
         <h1>Home</h1>
-        <Image src="/public/Logo.svg" alt="logo" width="100px" height="100px" />
+        <div>
+          <Image
+            src="/public/Logo.svg"
+            alt="logo"
+            width="100px"
+            height="100px"
+          />
+        </div>
         {/* position: absolute;
         width: 238.62px;
         height: 25.63px;

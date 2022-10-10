@@ -1,45 +1,59 @@
-.contentContainer {
+.container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 2rem;
-  height: calc(100vh - 5rem);
-
+  padding: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 20rem;
 }
 
-.hero {
-  max-width: 600px;
+.posts {
+  max-width: 720px;
 
-  > span {
-      font-size: 1.5rem;
-      font-weight: bold;
-  }
+  a {
+      display: block;
 
-  h1 {
-      font-size: 4.5rem;
-      line-height: 4.5rem;
-      font-weight: 900;
-      margin-top: 2.5rem;
+      color: #F8F8F8;
+      text-align: justify;
+      margin-bottom: 50px;
 
-      span {
-          color: var(--cyan-500);
+    }
+
+      & + a {
+          margin-top: 2rem;
+          padding-top: 2rem;
+          border-top: 1px solid gray;
+      }
+
+      time {
+          font-size: 1rem;
+          color: #D7D7D7;
+          margin-right: 2rem;
+          font-size: 14px;
+      }
+
+      strong {
+          display: block;
+          font-size: 1.5rem;
+          margin-top: 1rem;
+          line-height: 2rem;
+          transition: color 0.2s;
+
+          &:hover {
+            color: #FF57B2;
+          }
+      }
+
+      P {
+          color: #D7D7D7;
+          margin-top: 0.5rem;
+          font-size: 14px;
+          line-height: 1.625rem; //26px
       }
   }
+  .flex {
+    display: flex;
+    align-items: center;
 
-  p {
-      font-size: 1.5rem;
-      line-height: 2.25rem;
-      margin-top: 1.5rem;
-
-      span {
-          color: var(--cyan-500);
-          font-weight: bold;
-      }
   }
-
-  button {
-      margin-top: 2.5rem;
-  }
-}

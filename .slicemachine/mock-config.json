@@ -6,6 +6,12 @@
           "patternType": "PARAGRAPH",
           "blocks": 1
         }
+      },
+      "autor": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
       }
     }
   }

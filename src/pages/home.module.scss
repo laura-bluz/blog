@@ -17,7 +17,6 @@
       color: #F8F8F8;
       text-align: justify;
       margin-bottom: 50px;
-
     }
 
       & + a {
@@ -31,6 +30,7 @@
           color: #D7D7D7;
           margin-right: 2rem;
           font-size: 14px;
+          width: 15rem;
       }
 
       strong {
@@ -51,7 +51,20 @@
           font-size: 14px;
           line-height: 1.625rem; //26px
       }
+
+      button {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        text-align: justify;
+        color: #FF57B2;
+        background-color: transparent;
+        border: none;
+      }
   }
+
   .flex {
     display: flex;
     align-items: center;

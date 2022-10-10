@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
-import { getPrismicClient } from '../services/prismic';
-import commonStyles from '../styles/common.module.scss';
-import styles from './home.module.scss';
 import Head from 'next/head';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
+import { getPrismicClient } from '../services/prismic';
+// import commonStyles from '../styles/common.module.scss';
+import styles from './home.module.scss';
 import logo from '../../public/logo.svg';
 import usuario from '../../public/usuario.png';
 import calendario from '../../public/calendario.png';
@@ -36,14 +36,14 @@ interface PostPagination {
   results: Post1[];
 }
 
-interface HomeProps {
-  postsPagination: PostPagination;
-}
+// interface HomeProps {
+//   postsPagination: PostPagination;
+// }
 
-export default function Home(
-  { posts }: HomeProps,
-  { results }: PostPagination
-): JSX.Element {
+export default function Home({
+  posts,
+}: HomeProps): // { results }: PostPagination
+JSX.Element {
   return (
     <>
       <Head>
@@ -85,6 +85,9 @@ export default function Home(
               </a>
             </Link>
           ))}
+          <button type="button" className="carregar">
+            Carregar mais posts
+          </button>
         </div>
         {/* <div className={styles.results}>
           {results.map(result => (
@@ -135,33 +138,33 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
 
-  const results = response.results.map(result => {
-    return {
-      uid: result.uid,
-      first_publication_date: new Date(
-        result.first_publication_date
-      ).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }),
-      data: {
-        title: RichText.asText([
-          { type: 'heading1', text: result.data.title, spans: [] },
-        ]),
-        // subtitle: RichText.asText([
-        //   { type: 'heading2', text: result.dat, spans: [] },
-        // ]),
-        author: RichText.asText([
-          { type: 'heading3', text: result.data.autor, spans: [] },
-        ]),
-      },
-    };
-  });
+  //   const results = response.results.map(result => {
+  //     return {
+  //       uid: result.uid,
+  //       first_publication_date: new Date(
+  //         result.first_publication_date
+  //       ).toLocaleDateString('pt-BR', {
+  //         day: '2-digit',
+  //         month: 'long',
+  //         year: 'numeric',
+  //       }),
+  //       data: {
+  //         title: RichText.asText([
+  //           { type: 'heading1', text: result.data.title, spans: [] },
+  //         ]),
+  //         // subtitle: RichText.asText([
+  //         //   { type: 'heading2', text: result.dat, spans: [] },
+  //         // ]),
+  //         author: RichText.asText([
+  //           { type: 'heading3', text: result.data.autor, spans: [] },
+  //         ]),
+  //       },
+  //     };
+  // });
   return {
     props: {
       posts,
-      results,
+      //       results,
     },
   };
 };

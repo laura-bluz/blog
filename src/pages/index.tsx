@@ -10,6 +10,7 @@ import styles from './home.module.scss';
 import logo from '../../public/logo.svg';
 import usuario from '../../public/usuario.png';
 import calendario from '../../public/calendario.png';
+import Header from '../components/Header';
 
 type Home = {
   slug: string;
@@ -49,9 +50,9 @@ JSX.Element {
       <Head>
         <title>Home | Blog Space</title>
       </Head>
-
+      <Header />
       <main className={styles.container}>
-        <Image src={logo} className="logo" alt="logo" width={100} height={20} />
+        {/* <Image src={logo} className="logo" alt="logo" width={100} height={20} /> */}
         <div className={styles.posts}>
           {posts.map(post => (
             <Link href={`/post/${post.slug}`} key={post.slug}>

@@ -10,6 +10,7 @@ import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 import usuario from '../../../public/usuario.png';
 import calendario from '../../../public/calendario.png';
+import Header from '../../components/Header';
 
 type Post = {
   slug: string;
@@ -29,15 +30,8 @@ export default function Post({ posts }: PostsProps): JSX.Element {
       <Head>
         <title>Post | Blog Space</title>
       </Head>
-      <div className={styles.boxLogo}>
-        <Image
-          src={logo}
-          className={styles.logo}
-          alt="logo"
-          width={150}
-          height={20}
-        />
-      </div>
+
+      <Header />
       <main className={styles.container}>
         <div className={styles.banner}>
           <Image

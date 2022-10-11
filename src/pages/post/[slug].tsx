@@ -9,6 +9,8 @@ import logo from '../../../public/logo.svg';
 import banner from '../../../public/Banner.png';
 import usuario from '../../../public/usuario.png';
 import calendario from '../../../public/calendario.png';
+import relogio from '../../../public/relogio.png';
+import Header from '../../components/Header';
 // interface Post {
 //   first_publication_date: string | null;
 //   data: {
@@ -49,7 +51,8 @@ export default function Post({ post }: PostProps): JSX.Element {
         <title>{post.title} | Blog Space</title>
       </Head>
 
-      <div className={styles.boxLogo}>
+      <Header />
+      {/* <div className={styles.boxLogo}>
         <Image
           src={logo}
           className={styles.logo}
@@ -57,7 +60,7 @@ export default function Post({ post }: PostProps): JSX.Element {
           width={150}
           height={20}
         />
-      </div>
+      </div> */}
       <main className={styles.container}>
         <div className={styles.banner}>
           <Image
@@ -83,12 +86,15 @@ export default function Post({ post }: PostProps): JSX.Element {
                 />
                 {post.updatedAt}
               </time>
-              <p>
+              <p className={styles.autor}>
                 {' '}
                 <Image src={usuario} alt="usuario" width={20} height={20} />
                 {post.autor}
               </p>
-              <p>{post.tempoLeitura}</p>
+              <p>
+                <Image src={relogio} alt="relogio" width={20} height={20} />
+                {post.tempoLeitura}
+              </p>
             </div>
             {/* <p>{post.content}</p> */}
             <div

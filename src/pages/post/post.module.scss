@@ -1,8 +1,8 @@
-.boxLogo {
-  margin-left: 25%;
-  margin-right: 25%;
-  padding-top: 2%;
-}
+// .boxLogo {
+//   margin-left: 25%;
+//   margin-right: 25%;
+//   padding-top: 2%;
+// }
 
 
 .container {
@@ -32,8 +32,7 @@
   padding-left: 25%;
 
   a {
-      display: block;
-      color: #F8F8F8;
+      color: #D7D7D7;
       text-align: justify;
       align-items: center;
 
@@ -78,6 +77,7 @@
   .flex {
     display: flex;
     align-items: center;
+    margin-bottom: 3rem;
   }
 
   .content {
@@ -92,6 +92,10 @@
     &:hover {
       color: #FF57B2;
     }
+  }
+
+  .autor {
+    margin-right: 2rem;
   }
 
 

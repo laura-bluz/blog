@@ -36,10 +36,13 @@ interface PostProps {
     content: string;
     updatedAt: string;
     autor: string;
+    tempoLeitura: string;
   };
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
+  // console.log(RichText.asHtml(post.content));
+
   return (
     <>
       <Head>
@@ -66,15 +69,14 @@ export default function Post({ post }: PostProps): JSX.Element {
             objectFit="contain"
           />
         </div>
-        <article className={styles.post}>
+        <article className={styles.posts}>
           <div className={styles.containerPosts}>
-            <strong>{post.title}</strong>
+            <p className={styles.title}>{post.title}</p>
             <div className={styles.flex}>
               <time>
                 {' '}
                 <Image
                   src={calendario}
-                  className="calendario"
                   alt="calendario"
                   width={20}
                   height={20}
@@ -83,19 +85,14 @@ export default function Post({ post }: PostProps): JSX.Element {
               </time>
               <p>
                 {' '}
-                <Image
-                  src={usuario}
-                  className="usuario"
-                  alt="usuario"
-                  width={20}
-                  height={20}
-                />
+                <Image src={usuario} alt="usuario" width={20} height={20} />
                 {post.autor}
               </p>
+              <p>{post.tempoLeitura}</p>
             </div>
             {/* <p>{post.content}</p> */}
             <div
-              className={styles.postContent}
+              className={styles.content}
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
@@ -119,7 +116,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const prismic = getPrismicClient();
 
   const response = await prismic.getByUID('publication', String(slug), {});
+  const texto = RichText.asText(response.data.content).split(/\s+/);
 
+  const tempoLeitura = Math.ceil(texto.length / 200);
+
+  console.log('tempo', tempoLeitura);
+  console.log('tamanho', texto.length);
+  console.log(RichText.asText(response.data.content));
   const post = {
     slug,
     title: response.data.title,
@@ -132,6 +135,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         year: 'numeric',
       }
     ),
+    autor:
+      response.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
+    tempoLeitura: tempoLeitura.toString().concat('min'),
   };
 
   return {

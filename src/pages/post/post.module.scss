@@ -1,64 +1,98 @@
+.boxLogo {
+  margin-left: 25%;
+  margin-right: 25%;
+  padding-top: 2%;
+}
+
+
 .container {
-  max-width: 1120px;
+  // max-width: 1120px;
   margin: 0 auto;
-  padding: 0 2rem;
-}
+  // padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-.post {
-  max-width: 720px;
-  margin: 5rem auto 0;
 
-  h1 {
-      font-size: 3.5rem;
-      font-weight: 900;
-  }
-
-  time {
-      font-size: 1rem;
-      margin-top: 1.5rem;
-      display: block;
-  }
-
-  .postContent {
-      margin-top: 2rem;
-      line-height: 2rem;
-      font-size: 1.125rem; //18px desktop
-      color: var(--gray-100);
-
-      p, ul {
-          margin: 1.5rem 0;
-      }
-
-      ul {
-          padding-left: 1.5rem;
-
-          li {
-              margin: 0.5rem 0;
-          }
-      }
-
-      &.previewContent {
-          background: linear-gradient(var(--gray-100), transparent);
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-      }
+  .banner {
+    position: static;
+    left: 0;
+    top: 0;
+    width: 100%;
+    img {
+      width: 100%;
+    }
   }
 }
 
-.continueReading {
-  padding: 2rem;
-  text-align: center;
-  background: var(--gray-850);
-  border-radius: 100px;
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 4rem 0 2rem;
+
+.posts {
+  // max-width: 720px;
+  padding-right: 25%;
+  padding-left: 25%;
 
   a {
-      margin-left: 0.5rem;
+      display: block;
+      color: #F8F8F8;
+      text-align: justify;
+      align-items: center;
 
-      &:hover {
-          text-decoration: underline;
+    }
+
+      & + a {
+          margin-top: 2rem;
+          padding-top: 2rem;
+          border-top: 1px solid gray;
+      }
+
+      time {
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          margin-right: 2rem;
+          color: #BBBBBB;
+      }
+
+      strong {
+          // display: block;
+          // font-size: 1.5rem;
+          margin-top: 1rem;
+
+
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 30px;
+          color: #F8F8F8;
+      }
+
+      P {
+          color: #D7D7D7;
+          margin-top: 0.5rem;
+          line-height: 1.625rem; //26px
+          text-align: justify;
       }
   }
-}
+
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .content {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 50px !important;
+    margin-bottom: 1rem;
+
+    &:hover {
+      color: #FF57B2;
+    }
+  }
+
+
+

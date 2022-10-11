@@ -47,7 +47,7 @@ JSX.Element {
   return (
     <>
       <Head>
-        <title>Post | Blog Space</title>
+        <title>Home | Blog Space</title>
       </Head>
 
       <main className={styles.container}>

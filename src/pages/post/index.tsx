@@ -5,14 +5,18 @@ import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
 import logo from '../../../public/logo.svg';
+import banner from '../../../public/Banner.png';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
+import usuario from '../../../public/usuario.png';
+import calendario from '../../../public/calendario.png';
 
 type Post = {
   slug: string;
   title: string;
   excerpt: string;
   updatedAt: string;
+  autor: string;
 };
 
 interface PostsProps {
@@ -25,19 +29,62 @@ export default function Post({ posts }: PostsProps): JSX.Element {
       <Head>
         <title>Post | Blog Space</title>
       </Head>
-
+      <div className={styles.boxLogo}>
+        <Image
+          src={logo}
+          className={styles.logo}
+          alt="logo"
+          width={150}
+          height={20}
+        />
+      </div>
       <main className={styles.container}>
-        <Image src={logo} className="logo" alt="logo" width={100} height={20} />
+        <div className={styles.banner}>
+          <Image
+            src={banner}
+            alt="banner"
+            width="100%"
+            height={30}
+            layout="responsive"
+            objectFit="contain"
+          />
+        </div>
+        {/* ARRUMAR:  ir para apenas o post clicado */}
         <div className={styles.posts}>
-          {posts.map(post => (
-            <Link href={`/post/${post.slug}`} key={post.slug}>
-              <a>
-                <time>{post.updatedAt}</time>
-                <strong>{post.title}</strong>
-                <p>{post.excerpt}</p>
-              </a>
-            </Link>
-          ))}
+          <div className={styles.containerPosts}>
+            {posts.map(post => (
+              <Link href={`/post/${post.slug}`} key={post.slug}>
+                <a>
+                  <strong>{post.title}</strong>
+                  <div className={styles.flex}>
+                    <time>
+                      {' '}
+                      <Image
+                        src={calendario}
+                        className="calendario"
+                        alt="calendario"
+                        width={20}
+                        height={20}
+                      />
+                      {post.updatedAt}
+                    </time>
+                    <p>
+                      {' '}
+                      <Image
+                        src={usuario}
+                        className="usuario"
+                        alt="usuario"
+                        width={20}
+                        height={20}
+                      />
+                      {post.autor}
+                    </p>
+                  </div>
+                  <p>{post.excerpt}</p>
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
       </main>
     </>
@@ -50,7 +97,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await prismic.query(
     Prismic.predicates.at('document.type', 'publication'),
     {
-      fetch: ['publication.title', 'publication.content'],
+      fetch: ['publication.title', 'publication.content', 'publication.autor'],
       pageSize: 100,
     }
   );
@@ -72,6 +119,8 @@ export const getStaticProps: GetStaticProps = async () => {
           year: 'numeric',
         }
       ),
+      autor:
+        post.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
     };
   });
 

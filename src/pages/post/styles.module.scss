@@ -1,21 +1,41 @@
+.boxLogo {
+  margin-left: 25%;
+  margin-right: 25%;
+  padding-top: 2%;
+}
+
+
 .container {
-  max-width: 1120px;
+  // max-width: 1120px;
   margin: 0 auto;
-  padding: 2rem;
+  // padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 20rem;
+
+
+  .banner {
+    position: static;
+    left: 0;
+    top: 0;
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
 }
 
+
 .posts {
-  max-width: 720px;
+  // max-width: 720px;
+  padding-right: 25%;
+  padding-left: 25%;
 
   a {
       display: block;
-
       color: #F8F8F8;
       text-align: justify;
+      align-items: center;
 
     }
 
@@ -29,15 +49,25 @@
           font-size: 1rem;
           display: flex;
           align-items: center;
-          color: rgba(128, 128, 128, 0.356);
+          margin-right: 2rem;
+          color: #BBBBBB;
       }
 
       strong {
           display: block;
-          font-size: 1.5rem;
+          // font-size: 1.5rem;
           margin-top: 1rem;
           line-height: 2rem;
           transition: color 0.2s;
+
+
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 48px;
+          line-height: 58px;
+          letter-spacing: -0.5px;
+          color: #F8F8F8;
 
           &:hover {
             color: #FF57B2;
@@ -49,4 +79,9 @@
           margin-top: 0.5rem;
           line-height: 1.625rem; //26px
       }
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
   }

@@ -36,6 +36,7 @@ interface PostProps {
     title: string;
     content: string;
     updatedAt: string;
+    autor: string;
   };
 }
 

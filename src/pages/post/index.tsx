@@ -49,7 +49,6 @@ export default function Post({ posts }: PostsProps): JSX.Element {
             objectFit="contain"
           />
         </div>
-        {/* ARRUMAR:  ir para apenas o post clicado */}
         <div className={styles.posts}>
           <div className={styles.containerPosts}>
             {posts.map(post => (

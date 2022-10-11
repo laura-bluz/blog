@@ -1,15 +1,14 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
-
 import Head from 'next/head';
-
+import Image from 'next/image';
 import { RichText } from 'prismic-dom';
-
 import { getPrismicClient } from '../../services/prismic';
-
 // import commonStyles from '../../styles/common.module.scss';
-
 import styles from './post.module.scss';
-
+import logo from '../../../public/logo.svg';
+import banner from '../../../public/Banner.png';
+import usuario from '../../../public/usuario.png';
+import calendario from '../../../public/calendario.png';
 // interface Post {
 //   first_publication_date: string | null;
 //   data: {
@@ -47,27 +46,65 @@ export default function Post({ post }: PostProps): JSX.Element {
         <title>{post.title} | Blog Space</title>
       </Head>
 
+      <div className={styles.boxLogo}>
+        <Image
+          src={logo}
+          className={styles.logo}
+          alt="logo"
+          width={150}
+          height={20}
+        />
+      </div>
       <main className={styles.container}>
-        <article className={styles.post}>
-          <h1>{post.title}</h1>
-          <time>{post.updatedAt}</time>
-          <div
-            className={styles.postContent}
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: post.content }}
+        <div className={styles.banner}>
+          <Image
+            src={banner}
+            alt="banner"
+            width="100%"
+            height={30}
+            layout="responsive"
+            objectFit="contain"
           />
+        </div>
+        <article className={styles.post}>
+          <div className={styles.containerPosts}>
+            <strong>{post.title}</strong>
+            <div className={styles.flex}>
+              <time>
+                {' '}
+                <Image
+                  src={calendario}
+                  className="calendario"
+                  alt="calendario"
+                  width={20}
+                  height={20}
+                />
+                {post.updatedAt}
+              </time>
+              <p>
+                {' '}
+                <Image
+                  src={usuario}
+                  className="usuario"
+                  alt="usuario"
+                  width={20}
+                  height={20}
+                />
+                {post.autor}
+              </p>
+            </div>
+            {/* <p>{post.content}</p> */}
+            <div
+              className={styles.postContent}
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
         </article>
       </main>
     </>
   );
 }
-
-// export const getStaticPaths = async () => {
-//   const prismic = getPrismicClient({});
-//   const posts = await prismic.getByType(TODO);
-
-//   // TODO
-// };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -81,7 +118,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const prismic = getPrismicClient();
 
-  const response = await prismic.getByUID('post', String(slug), {});
+  const response = await prismic.getByUID('publication', String(slug), {});
 
   const post = {
     slug,

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
-import logo from '../../../public/logo.svg';
+import logo from '../../../public/Logo.svg';
 import banner from '../../../public/Banner.png';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';

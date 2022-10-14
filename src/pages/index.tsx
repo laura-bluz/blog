@@ -7,7 +7,6 @@ import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../services/prismic';
 // import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import logo from '../../public/logo.svg';
 import usuario from '../../public/usuario.png';
 import calendario from '../../public/calendario.png';
 import Header from '../components/Header';

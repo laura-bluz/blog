@@ -4,6 +4,16 @@ import { GetServerSideProps } from 'next';
 import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../../services/prismic';
 
+interface PostPreviewProps {
+  post: {
+    slug: string;
+    title: string;
+    content: string;
+    updatedAt: string;
+    autor: string;
+  };
+}
+
 function linkResolver(doc: Document): string {
   if (doc.contentType === 'posts') {
     return `/post/${doc.getElementById}`;
@@ -41,8 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     ),
     autor:
-      post.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
-  };
+      response.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
   };
 
   return {

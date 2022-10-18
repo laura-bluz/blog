@@ -48,18 +48,7 @@ JSX.Element {
         {/* <Image src={logo} className="logo" alt="logo" width={100} height={20} /> */}
         <div className={styles.posts}>
           {posts.map((post, index) => (
-            <Link
-              href={{
-                pathname: `/post/${post.slug}`,
-                query: {
-                  anterior: posts[index - 1]?.slug,
-                  titleAnterior: posts[index - 1]?.title,
-                  proximo: posts[index + 1]?.slug,
-                  titleProximo: posts[index + 1]?.title,
-                },
-              }}
-              key={post.slug}
-            >
+            <Link href={`/post/${post.slug}`} key={post.slug}>
               <a>
                 <strong>{post.title}</strong>
                 <p>{post.slug}</p>

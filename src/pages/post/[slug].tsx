@@ -50,10 +50,6 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
-  // console.log(RichText.asHtml(post.content));
-  const router = useRouter();
-  const query = router.query;
-  console.log('queryLaura', query);
   return (
     <>
       <Head>

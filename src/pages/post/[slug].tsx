@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { title } from 'process';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
+import { PrismicDocument } from '@prismicio/types';
 interface PostProps {
   post: {
     slug: string;
@@ -27,10 +28,12 @@ interface PostProps {
     autor: string;
     tempoLeitura: string;
   };
-  anterior: string;
-  proximo: string;
+  anterior: PrismicDocument<Record<string, any>, string, string>;
+  proximo: PrismicDocument<Record<string, any>, string, string>;
 }
-
+const linkResolver = doc => {
+  return '/' + doc.uid;
+};
 export default function Post({
   post,
   anterior,
@@ -43,15 +46,7 @@ export default function Post({
       </Head>
 
       <Header />
-      {/* <div className={styles.boxLogo}>
-        <Image
-          src={logo}
-          className={styles.logo}
-          alt="logo"
-          width={150}
-          height={20}
-        />
-      </div> */}
+
       <main className={styles.container}>
         <div className={styles.banner}>
           <Image
@@ -98,17 +93,16 @@ export default function Post({
         <div className={styles.linha}></div>
         <div className={styles.align}>
           <div className={styles.hooks}>
-            <p>{anterior}</p>
-            {/* <p>{query.titleAnterior}</p> */}
-            <Link href="/">
+            <p>{anterior?.data?.title}</p>
+            <Link href={`/post/${anterior?.uid}`}>
               <button type="button" className="carregar">
                 Post anterior
               </button>
             </Link>
           </div>
           <div className={styles.proximosHooks}>
-            {/* <p>{query.titleProximo}</p> */}
-            <Link href={'/'}>
+            <div>{proximo?.data?.title}</div>
+            <Link href={`/post/${proximo?.uid}`}>
               <button type="button" className="carregar">
                 Próximo post
               </button>
@@ -137,7 +131,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const prismic = getPrismicClient();
 
   const doc = await prismic.getByUID('publication', String(slug), {});
-
+  console.log('doc', doc);
   const texto = RichText.asText(doc.data.content).split(/\s+/);
 
   const tempoLeitura = Math.ceil(texto.length / 200);
@@ -171,23 +165,22 @@ export const getStaticProps: GetStaticProps = async context => {
       orderings: ['document.first_publication_date desc'],
     }
   );
-  // const anteriorPost = await prismic.query(
-  //   Prismic.Predicates.at('document.type', 'publication'),
-  //   {
-  //     pageSize: 1,
-  //     after: doc?.id,
-  //     orderings: '[document.first_publication_date]',
-  //   }
-  // );
+  const anteriorPost = await prismic.query(
+    Prismic.Predicates.at('document.type', 'publication'),
+    {
+      pageSize: 1,
+      after: doc?.id,
+      orderings: ['document.first_publication_date'],
+    }
+  );
   const proximo = proximoPost?.results[0] || null;
-  // const anterior = anteriorPost?.results[0] || null;
+  const anterior = anteriorPost?.results[0] || null;
 
   return {
     props: {
       post,
-      doc,
       proximo,
-      // anterior,
+      anterior,
     },
     redirect: 60 * 30, // 30 minutos
   };

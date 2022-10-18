@@ -47,8 +47,14 @@ JSX.Element {
       <main className={styles.container}>
         {/* <Image src={logo} className="logo" alt="logo" width={100} height={20} /> */}
         <div className={styles.posts}>
-          {posts.map(post => (
-            <Link href={`/post/${post.slug}`} key={post.slug}>
+          {posts.map((post, index) => (
+            <Link
+              href={{
+                pathname: `/post/${post.slug}`,
+                query: { a: 'Laura' }, //ARRUMAR
+              }}
+              key={post.slug}
+            >
               <a>
                 <strong>{post.title}</strong>
                 <p>{post.slug}</p>

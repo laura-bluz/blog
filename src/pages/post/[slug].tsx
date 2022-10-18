@@ -13,6 +13,7 @@ import relogio from '../../../public/relogio.png';
 import Header from '../../components/Header';
 import React from 'react';
 import Utterances from '../../components/Comentario';
+import { useRouter } from 'next/router';
 
 // interface Post {
 //   first_publication_date: string | null;
@@ -48,7 +49,9 @@ interface PostProps {
 
 export default function Post({ post }: PostProps): JSX.Element {
   // console.log(RichText.asHtml(post.content));
-
+  const router = useRouter();
+  const query = router.query;
+  console.log('query', router);
   return (
     <>
       <Head>
@@ -131,16 +134,18 @@ export default function Post({ post }: PostProps): JSX.Element {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async context => {
+  console.log('contextttttt', context);
   return {
     paths: [],
     fallback: 'blocking',
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params;
-
+export const getStaticProps: GetStaticProps = async context => {
+  const { slug } = context.params;
+  console.log('params', context);
+  // console.log('cont', context)
   const prismic = getPrismicClient();
 
   const response = await prismic.getByUID('publication', String(slug), {});

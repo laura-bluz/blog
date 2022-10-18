@@ -116,28 +116,22 @@ export default function Post({ post }: PostProps): JSX.Element {
         <div className={styles.linha}></div>
         <div className={styles.align}>
           <div className={styles.hooks}>
-            <p>{query.titleAnterior}</p>
-            {query.titleAnterior !== '' ? (
-              <Link href={`/post/${query.anterior}`}>
-                <button type="button" className="carregar">
-                  Post anterior
-                </button>
-              </Link>
-            ) : (
-              ''
-            )}
+            {/* <p>{query.titleAnterior}</p> */}
+            <Link href="/">
+              <button type="button" className="carregar">
+                Post anterior
+              </button>
+            </Link>
+            ) : ( '' )
           </div>
           <div className={styles.proximosHooks}>
-            <p>{query.titleProximo}</p>
-            {query.titleProximo !== '' ? (
-              <Link href={`/post/${query.proximo}`}>
-                <button type="button" className="carregar">
-                  Próximo post
-                </button>
-              </Link>
-            ) : (
-              ''
-            )}
+            {/* <p>{query.titleProximo}</p> */}
+            <Link href={'/'}>
+              <button type="button" className="carregar">
+                Próximo post
+              </button>
+            </Link>
+            ) : ( '' )
           </div>
         </div>
         <br></br>
@@ -202,60 +196,3 @@ export const getStaticProps: GetStaticProps = async context => {
     redirect: 60 * 30, // 30 minutos
   };
 };
-
-// username/repo format
-// const REPO_NAME = 'laura-bluz/blog';
-
-// export const useUtterances = (commentNodeId: string, theme: string) => {
-//   React.useEffect(() => {
-//     const scriptParentNode = document.getElementById(commentNodeId);
-//     if (!scriptParentNode) return;
-
-//     // docs - https://utteranc.es/
-//     const script = document.createElement('script');
-//     script.src = 'https://utteranc.es/client.js';
-//     script.async = true;
-//     script.setAttribute('repo', REPO_NAME);
-//     script.setAttribute('issue-term', 'pathname');
-//     // script.setAttribute('label', 'comment :speech_balloon:');
-//     // scriptElem.setAttribute('label', 'blog-comment');
-//     script.setAttribute('label', 'blog-comment');
-//     script.setAttribute('theme', 'github-light');
-//     // script.setAttribute('crossOrigin', 'anonymous');
-//     // scriptElem.crossOrigin = 'anonymous';
-//     script.crossOrigin = 'anonymous';
-//     scriptParentNode.appendChild(script);
-
-//     return () => {
-//       // cleanup - remove the older script with previous theme
-//       scriptParentNode.removeChild(scriptParentNode.firstChild as Node);
-//     };
-//   }, [commentNodeId]);
-// };
-
-// const Wrapper = styled.div`
-//   width: 100%;
-//   padding: 1rem;
-//   .utterances {
-//     max-width: 77rem;
-//   }
-// `;
-
-// export const UtterancesComments: React.FC = () => (
-//   <section
-//     ref={elem => {
-//       if (!elem) {
-//         return;
-//       }
-//       const scriptElem = document.createElement('script');
-//       scriptElem.src = 'https://utteranc.es/client.js';
-//       scriptElem.async = true;
-//       scriptElem.crossOrigin = 'anonymous';
-//       scriptElem.setAttribute('repo', 'laura-bluz/blog');
-//       scriptElem.setAttribute('issue-term', 'pathname');
-//       scriptElem.setAttribute('label', 'blog-comment');
-//       scriptElem.setAttribute('theme', 'github-light');
-//       elem.appendChild(scriptElem);
-//     }}
-//   />
-// );

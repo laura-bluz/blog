@@ -16,27 +16,7 @@ import Utterances from '../../components/Comentario';
 import { useRouter } from 'next/router';
 import { title } from 'process';
 import Link from 'next/link';
-
-// interface Post {
-//   first_publication_date: string | null;
-//   data: {
-//     title: string;
-//     banner: {
-//       url: string;
-//     };
-//     author: string;
-//     content: {
-//       heading: string;
-//       body: {
-//         text: string;
-//       }[];
-//     }[];
-//   };
-// }
-
-// interface PostProps {
-//   post: Post;
-// }
+import * as Prismic from '@prismicio/client';
 interface PostProps {
   post: {
     slug: string;
@@ -47,9 +27,15 @@ interface PostProps {
     autor: string;
     tempoLeitura: string;
   };
+  anterior: string;
+  proximo: string;
 }
 
-export default function Post({ post }: PostProps): JSX.Element {
+export default function Post({
+  post,
+  anterior,
+  proximo,
+}: PostProps): JSX.Element {
   return (
     <>
       <Head>
@@ -112,6 +98,7 @@ export default function Post({ post }: PostProps): JSX.Element {
         <div className={styles.linha}></div>
         <div className={styles.align}>
           <div className={styles.hooks}>
+            <p>{anterior}</p>
             {/* <p>{query.titleAnterior}</p> */}
             <Link href="/">
               <button type="button" className="carregar">
@@ -146,23 +133,20 @@ export const getStaticPaths: GetStaticPaths = async context => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const { slug } = context.params;
-  // console.log('params', context);
-  // console.log('cont', context)
+
   const prismic = getPrismicClient();
 
-  const response = await prismic.getByUID('publication', String(slug), {});
-  const texto = RichText.asText(response.data.content).split(/\s+/);
+  const doc = await prismic.getByUID('publication', String(slug), {});
+
+  const texto = RichText.asText(doc.data.content).split(/\s+/);
 
   const tempoLeitura = Math.ceil(texto.length / 200);
 
-  // console.log('tempo', tempoLeitura);
-  // console.log('tamanho', texto.length);
-  // console.log(RichText.asText(response.data.content));
   const post = {
     slug,
-    title: response.data.title,
-    content: RichText.asHtml(response.data.content.splice(0, 3)),
-    createdAt: new Date(response.first_publication_date).toLocaleDateString(
+    title: doc.data.title,
+    content: RichText.asHtml(doc.data.content.splice(0, 3)),
+    createdAt: new Date(doc.first_publication_date).toLocaleDateString(
       'pt-BR',
       {
         day: '2-digit',
@@ -170,22 +154,40 @@ export const getStaticProps: GetStaticProps = async context => {
         year: 'numeric',
       }
     ),
-    updatedAt: new Date(response.last_publication_date).toLocaleTimeString(
-      'pt-BR',
-      {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }
-    ),
-    autor:
-      response.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
+    updatedAt: new Date(doc.last_publication_date).toLocaleTimeString('pt-BR', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }),
+    autor: doc.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
     tempoLeitura: tempoLeitura.toString().concat('min'),
   };
+
+  const proximoPost = await prismic.query(
+    Prismic.Predicates.at('document.type', 'publication'),
+    {
+      pageSize: 1,
+      after: doc?.id,
+      orderings: ['document.first_publication_date desc'],
+    }
+  );
+  // const anteriorPost = await prismic.query(
+  //   Prismic.Predicates.at('document.type', 'publication'),
+  //   {
+  //     pageSize: 1,
+  //     after: doc?.id,
+  //     orderings: '[document.first_publication_date]',
+  //   }
+  // );
+  const proximo = proximoPost?.results[0] || null;
+  // const anterior = anteriorPost?.results[0] || null;
 
   return {
     props: {
       post,
+      doc,
+      proximo,
+      // anterior,
     },
     redirect: 60 * 30, // 30 minutos
   };

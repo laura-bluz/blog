@@ -99,6 +99,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
+  console.log('response', response.results);
   const posts = response.results.map(post => {
     return {
       slug: post.uid,

@@ -22,12 +22,6 @@
   }
 
   .hooks, .proximosHooks {
-    text-align: justify;
-
-    p {
-      width: 70%;
-    }
-
     button {
       font-family: 'Inter';
       font-style: normal;
@@ -41,8 +35,14 @@
     }
   }
 
+  .hooks {
+    width: 25%;
+  }
+
   .proximosHooks {
-    padding-left: 25%;
+    width: 40%;
+    text-align: justify;
+    padding-left: 20%;
   }
 
   .banner {

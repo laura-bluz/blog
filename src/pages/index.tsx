@@ -54,7 +54,9 @@ JSX.Element {
                 query: {
                   anterior: posts[index - 1]?.slug,
                   titleAnterior: posts[index - 1]?.title,
-                }, //ARRUMAR
+                  proximo: posts[index + 1]?.slug,
+                  titleProximo: posts[index + 1]?.title,
+                },
               }}
               key={post.slug}
             >

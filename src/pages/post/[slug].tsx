@@ -116,19 +116,28 @@ export default function Post({ post }: PostProps): JSX.Element {
         <div className={styles.linha}></div>
         <div className={styles.align}>
           <div className={styles.hooks}>
-            {query.titleAnterior}
-            <Link href={`/post/${query.anterior}`}>
-              {/* fazer com estado */}
-              <button type="button" className="carregar">
-                Post anterior
-              </button>
-            </Link>
+            <p>{query.titleAnterior}</p>
+            {query.titleAnterior !== '' ? (
+              <Link href={`/post/${query.anterior}`}>
+                <button type="button" className="carregar">
+                  Post anterior
+                </button>
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
           <div className={styles.proximosHooks}>
-            <p>Próximo post</p>
-            <button type="button" className="carregar">
-              Próximo post
-            </button>
+            <p>{query.titleProximo}</p>
+            {query.titleProximo !== '' ? (
+              <Link href={`/post/${query.proximo}`}>
+                <button type="button" className="carregar">
+                  Próximo post
+                </button>
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
         </div>
         <br></br>

@@ -14,7 +14,7 @@ import Header from '../components/Header';
 type Home = {
   slug: string;
   title: string;
-  updatedAt: string;
+  createdAt: string;
   autor: string;
 };
 interface HomeProps {
@@ -68,7 +68,7 @@ JSX.Element {
                       width={20}
                       height={20}
                     />
-                    {post.updatedAt}
+                    {post.createdAt}
                   </time>
                   <p>
                     {' '}
@@ -111,7 +111,7 @@ export const getStaticProps: GetStaticProps = async () => {
       title: RichText.asText([
         { type: 'heading1', text: post.data.title, spans: [] },
       ]),
-      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+      createdAt: new Date(post.first_publication_date).toLocaleDateString(
         'pt-BR',
         {
           day: '2-digit',

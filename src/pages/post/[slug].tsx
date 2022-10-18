@@ -14,6 +14,8 @@ import Header from '../../components/Header';
 import React from 'react';
 import Utterances from '../../components/Comentario';
 import { useRouter } from 'next/router';
+import { title } from 'process';
+import Link from 'next/link';
 
 // interface Post {
 //   first_publication_date: string | null;
@@ -51,7 +53,7 @@ export default function Post({ post }: PostProps): JSX.Element {
   // console.log(RichText.asHtml(post.content));
   const router = useRouter();
   const query = router.query;
-  console.log('query', router);
+  console.log('queryLaura', query);
   return (
     <>
       <Head>
@@ -114,13 +116,16 @@ export default function Post({ post }: PostProps): JSX.Element {
         <div className={styles.linha}></div>
         <div className={styles.align}>
           <div className={styles.hooks}>
-            <p>{post.title}</p>
-            <button type="button" className="carregar">
-              Post anterior
-            </button>
+            {query.titleAnterior}
+            <Link href={`/post/${query.anterior}`}>
+              {/* fazer com estado */}
+              <button type="button" className="carregar">
+                Post anterior
+              </button>
+            </Link>
           </div>
           <div className={styles.proximosHooks}>
-            <p>{post.title}</p>
+            <p>Próximo post</p>
             <button type="button" className="carregar">
               Próximo post
             </button>
@@ -135,7 +140,7 @@ export default function Post({ post }: PostProps): JSX.Element {
 }
 
 export const getStaticPaths: GetStaticPaths = async context => {
-  console.log('contextttttt', context);
+  // console.log('contextttttt', context);
   return {
     paths: [],
     fallback: 'blocking',
@@ -144,7 +149,7 @@ export const getStaticPaths: GetStaticPaths = async context => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const { slug } = context.params;
-  console.log('params', context);
+  // console.log('params', context);
   // console.log('cont', context)
   const prismic = getPrismicClient();
 

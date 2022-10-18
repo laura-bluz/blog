@@ -51,7 +51,10 @@ JSX.Element {
             <Link
               href={{
                 pathname: `/post/${post.slug}`,
-                query: { a: 'Laura' }, //ARRUMAR
+                query: {
+                  anterior: posts[index - 1]?.slug,
+                  titleAnterior: posts[index - 1]?.title,
+                }, //ARRUMAR
               }}
               key={post.slug}
             >

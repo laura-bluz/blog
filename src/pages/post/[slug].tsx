@@ -122,7 +122,6 @@ export default function Post({ post }: PostProps): JSX.Element {
                 Post anterior
               </button>
             </Link>
-            ) : ( '' )
           </div>
           <div className={styles.proximosHooks}>
             {/* <p>{query.titleProximo}</p> */}
@@ -131,7 +130,6 @@ export default function Post({ post }: PostProps): JSX.Element {
                 Próximo post
               </button>
             </Link>
-            ) : ( '' )
           </div>
         </div>
         <br></br>

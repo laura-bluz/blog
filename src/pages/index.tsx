@@ -14,7 +14,6 @@ import Header from '../components/Header';
 type Home = {
   slug: string;
   title: string;
-  excerpt: string;
   updatedAt: string;
   autor: string;
 };
@@ -33,12 +32,7 @@ interface Post1 {
 
 interface PostPagination {
   next_page: string;
-  results: Post1[];
 }
-
-// interface HomeProps {
-//   postsPagination: PostPagination;
-// }
 
 export default function Home({
   posts,
@@ -89,17 +83,6 @@ JSX.Element {
             Carregar mais posts
           </button>
         </div>
-        {/* <div className={styles.results}>
-          {results.map(result => (
-            <Link href={`/result/${result.data}`} key={result.uid}>
-              <a>
-                <strong>{result.data.autor}</strong>
-                <time>{result.first_publication_date}</time>
-                <p>{result.data.subtitle}</p>
-              </a>
-            </Link>
-          ))}
-        </div> */}
       </main>
     </>
   );
@@ -111,7 +94,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await prismic.query(
     Prismic.predicates.at('document.type', 'publication'),
     {
-      fetch: ['publication.title', 'publication.content', 'publication.autor'],
+      fetch: ['publication.title', 'publication.autor'],
       pageSize: 100,
     }
   );
@@ -122,9 +105,6 @@ export const getStaticProps: GetStaticProps = async () => {
       title: RichText.asText([
         { type: 'heading1', text: post.data.title, spans: [] },
       ]),
-      excerpt:
-        post.data.content.find(content => content.type === 'paragraph')?.text ??
-        '',
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
         'pt-BR',
         {
@@ -137,45 +117,9 @@ export const getStaticProps: GetStaticProps = async () => {
         post.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
     };
   });
-
-  //   const results = response.results.map(result => {
-  //     return {
-  //       uid: result.uid,
-  //       first_publication_date: new Date(
-  //         result.first_publication_date
-  //       ).toLocaleDateString('pt-BR', {
-  //         day: '2-digit',
-  //         month: 'long',
-  //         year: 'numeric',
-  //       }),
-  //       data: {
-  //         title: RichText.asText([
-  //           { type: 'heading1', text: result.data.title, spans: [] },
-  //         ]),
-  //         // subtitle: RichText.asText([
-  //         //   { type: 'heading2', text: result.dat, spans: [] },
-  //         // ]),
-  //         author: RichText.asText([
-  //           { type: 'heading3', text: result.data.autor, spans: [] },
-  //         ]),
-  //       },
-  //     };
-  // });
   return {
     props: {
       posts,
-      //       results,
     },
   };
 };
-
-/* {
-          (props.next_page) ?
-            <button type="button">Carregar mais posts</button>
-        : props.next_page === false
-        } */
-
-// export const getStaticProps = async (): JSX.Element => {
-//   const prismic = getPrismicClient();
-//   const postsResponse = await prismic.getByType();
-// };

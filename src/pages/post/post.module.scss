@@ -109,9 +109,13 @@
   .flex {
     display: flex;
     align-items: center;
-    margin-bottom: 3rem;
+    // margin-bottom: 3rem;
   }
-
+  .editado {
+    margin-bottom: 3rem;
+    text-transform: lowercase;
+    font-style: italic;
+  }
   .content {
     font-size: 18px;
   }

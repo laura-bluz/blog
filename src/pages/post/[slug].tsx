@@ -40,6 +40,7 @@ interface PostProps {
     title: string;
     content: string;
     updatedAt: string;
+    createdAt: string;
     autor: string;
     tempoLeitura: string;
   };
@@ -87,7 +88,7 @@ export default function Post({ post }: PostProps): JSX.Element {
                   width={20}
                   height={20}
                 />
-                {post.updatedAt}
+                {post.createdAt}
               </time>
               <p className={styles.autor}>
                 {' '}
@@ -99,7 +100,7 @@ export default function Post({ post }: PostProps): JSX.Element {
                 {post.tempoLeitura}
               </p>
             </div>
-            {/* <p>{post.content}</p> */}
+            <p className={styles.editado}>*editado em {post.updatedAt}</p>
             <div
               className={styles.content}
               // eslint-disable-next-line react/no-danger
@@ -154,7 +155,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug,
     title: response.data.title,
     content: RichText.asHtml(response.data.content.splice(0, 3)),
-    updatedAt: new Date(response.last_publication_date).toLocaleDateString(
+    createdAt: new Date(response.first_publication_date).toLocaleDateString(
+      'pt-BR',
+      {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }
+    ),
+    updatedAt: new Date(response.last_publication_date).toLocaleTimeString(
       'pt-BR',
       {
         day: '2-digit',

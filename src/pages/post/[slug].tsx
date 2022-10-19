@@ -92,23 +92,32 @@ export default function Post({
         </article>
         <div className={styles.linha}></div>
         <div className={styles.align}>
-          <div className={styles.hooks}>
-            <p>{anterior?.data?.title}</p>
-            <Link href={`/post/${anterior?.uid}`}>
-              <button type="button" className="carregar">
-                Post anterior
-              </button>
-            </Link>
-          </div>
-          <div className={styles.proximosHooks}>
-            <div>{proximo?.data?.title}</div>
-            <Link href={`/post/${proximo?.uid}`}>
-              <button type="button" className="carregar">
-                Próximo post
-              </button>
-            </Link>
-          </div>
+          {anterior ? (
+            <div className={styles.hooks}>
+              <p>{anterior?.data?.title}</p>
+              <Link href={`/post/${anterior?.uid}`}>
+                <button type="button" className="carregar">
+                  Post anterior
+                </button>
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
+          {proximo ? (
+            <div className={styles.proximosHooks}>
+              <div>{proximo?.data?.title}</div>
+              <Link href={`/post/${proximo?.uid}`}>
+                <button type="button" className="carregar">
+                  Próximo post
+                </button>
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
+
         <br></br>
       </main>
 
@@ -131,7 +140,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const prismic = getPrismicClient();
 
   const doc = await prismic.getByUID('publication', String(slug), {});
-  console.log('doc', doc);
+  console.log('doc', doc.data.content);
   const texto = RichText.asText(doc.data.content).split(/\s+/);
 
   const tempoLeitura = Math.ceil(texto.length / 200);

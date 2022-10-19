@@ -93,7 +93,7 @@ export default function Post({
         <div className={styles.linha}></div>
         <div className={styles.align}>
           {anterior ? (
-            <div className={styles.hooks}>
+            <div className={styles.alignFilhos}>
               <p>{anterior?.data?.title}</p>
               <Link href={`/post/${anterior?.uid}`}>
                 <button type="button" className="carregar">
@@ -102,10 +102,10 @@ export default function Post({
               </Link>
             </div>
           ) : (
-            ''
+            <div></div>
           )}
           {proximo ? (
-            <div className={styles.proximosHooks}>
+            <div className={styles.alignFilhos}>
               <div>{proximo?.data?.title}</div>
               <Link href={`/post/${proximo?.uid}`}>
                 <button type="button" className="carregar">
@@ -114,7 +114,7 @@ export default function Post({
               </Link>
             </div>
           ) : (
-            ''
+            <div></div>
           )}
         </div>
 

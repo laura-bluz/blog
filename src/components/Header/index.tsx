@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import logo from '../../../public/logo.svg';
+import logo from '../../../public/Logo.svg';
 import styles from './header.module.scss';
 
 export default function Header(): JSX.Element {

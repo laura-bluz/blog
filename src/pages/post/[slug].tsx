@@ -127,7 +127,6 @@ export default function Post({
 }
 
 export const getStaticPaths: GetStaticPaths = async context => {
-  // console.log('contextttttt', context);
   return {
     paths: [],
     fallback: 'blocking',
@@ -140,7 +139,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const prismic = getPrismicClient();
 
   const doc = await prismic.getByUID('publication', String(slug), {});
-  console.log('doc', doc.data.content);
+
   const texto = RichText.asText(doc.data.content).split(/\s+/);
 
   const tempoLeitura = Math.ceil(texto.length / 200);

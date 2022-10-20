@@ -18,7 +18,19 @@ type Home = {
   autor: string;
 };
 interface HomeProps {
-  posts: Home[];
+  posts?: Home[];
+  postsPagination: {
+    next_page: string;
+    results: {
+      uid: string;
+      first_publication_date: string;
+      data: {
+        title: string;
+        subtitle: string;
+        author: string;
+      };
+    }[];
+  };
 }
 interface Post1 {
   uid?: string;
@@ -99,7 +111,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  console.log('response', response.results);
   const posts = response.results.map(post => {
     return {
       slug: post.uid,

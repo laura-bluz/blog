@@ -34,22 +34,32 @@ const mockedGetByTypeReturn = {
   next_page: 'link',
   results: [
     {
-      uid: 'como-utilizar-hooks',
-      first_publication_date: '2021-03-15T19:25:28+0000',
+      uid: 'codigo-limpo-reflexao-e-pratica',
+      first_publication_date: '2022-10-18T09:17:00+0000', // ARRUMAR HORA --------------------------------------------------------------------------------
       data: {
-        title: 'Como utilizar Hooks',
-        subtitle: 'Pensando em sincronização em vez de ciclos de vida',
-        author: 'Joseph Oliveira',
+        title: 'Código Limpo: reflexão e prática',
+        subtitle: '', // ARRUMAR -----------------------------------------------------------------------
+        author: 'Felipe Buzzi',
       },
     },
     {
-      uid: 'criando-um-app-cra-do-zero',
-      first_publication_date: '2021-03-25T19:27:35+0000',
+      uid: 'comunidade-guia-pratico-de-como-contribuir-para-o',
+      first_publication_date: '2022-10-11T06:13:00+0000',
       data: {
-        title: 'Criando um app CRA do zero',
-        subtitle:
-          'Tudo sobre como criar a sua primeira aplicação utilizando Create React App',
-        author: 'Danilo Vieira',
+        title:
+          'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia',
+        subtitle: '',
+        author: 'Felipe Buzzi',
+      },
+    },
+    {
+      uid: 'as-principais-licoes-e-dicas-compiladas',
+      first_publication_date: '2022-10-17T10:18:00+0000',
+      data: {
+        title:
+          'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
+        subtitle: '',
+        author: 'Camila Coelho',
       },
     },
   ],
@@ -92,13 +102,13 @@ describe('Home', () => {
             next_page: null,
             results: [
               {
-                uid: 'criando-um-app-cra-do-zero',
-                first_publication_date: '2021-03-25T19:27:35+0000',
+                uid: 'as-principais-licoes-e-dicas-compiladas',
+                first_publication_date: '2022-10-17T10:18:00+0000',
                 data: {
-                  title: 'Criando um app CRA do zero',
-                  subtitle:
-                    'Tudo sobre como criar a sua primeira aplicação utilizando Create React App',
-                  author: 'Danilo Vieira',
+                  title:
+                    'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
+                  subtitle: '',
+                  author: 'Camila Coelho',
                 },
               },
             ],
@@ -132,17 +142,18 @@ describe('Home', () => {
 
     render(<App postsPagination={postsPagination} />);
 
-    screen.getByText('Como utilizar Hooks');
-    screen.getByText('Pensando em sincronização em vez de ciclos de vida');
-    screen.getByText('15 mar 2021');
-    screen.getByText('Joseph Oliveira');
-
-    screen.getByText('Criando um app CRA do zero');
     screen.getByText(
-      'Tudo sobre como criar a sua primeira aplicação utilizando Create React App'
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
     );
-    screen.getByText('15 mar 2021');
-    screen.getByText('Danilo Vieira');
+    screen.getByText(''); // pegar texto do post
+    screen.getByText(''); // pegar data
+    screen.getByText('Felipe Buzzi');
+
+    screen.getByText(
+      'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.'
+    );
+    screen.getByText(''); // pegar data
+    screen.getByText('Camila Coelho');
   });
 
   it('should be able to navigate to post page after a click', () => {
@@ -152,21 +163,23 @@ describe('Home', () => {
       wrapper: RouterWrapper,
     });
 
-    const firstPostTitle = screen.getByText('Como utilizar Hooks');
-    const secondPostTitle = screen.getByText('Criando um app CRA do zero');
+    const firstPostTitle = screen.getByText('Código Limpo: reflexão e prática');
+    const secondPostTitle = screen.getByText(
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+    );
 
     fireEvent.click(firstPostTitle);
     fireEvent.click(secondPostTitle);
 
     expect(mockedPush).toHaveBeenNthCalledWith(
       1,
-      '/post/como-utilizar-hooks',
+      '/post/codigo-limpo-reflexao-e-pratica',
       expect.anything(),
       expect.anything()
     );
     expect(mockedPush).toHaveBeenNthCalledWith(
       2,
-      '/post/criando-um-app-cra-do-zero',
+      '/post/comunidade-guia-pratico-de-como-contribuir-para-o',
       expect.anything(),
       expect.anything()
     );
@@ -176,19 +189,19 @@ describe('Home', () => {
     const postsPagination = { ...mockedGetByTypeReturn };
     postsPagination.results = [
       {
-        uid: 'como-utilizar-hooks',
-        first_publication_date: '2021-03-15T19:25:28+0000',
+        uid: 'codigo-limpo-reflexao-e-pratica',
+        first_publication_date: '2022-10-18T09:17:00+0000', // ARRUMAR HORA --------------------------------------------------------------------------------
         data: {
-          title: 'Como utilizar Hooks',
-          subtitle: 'Pensando em sincronização em vez de ciclos de vida',
-          author: 'Joseph Oliveira',
+          title: 'Código Limpo: reflexão e prática',
+          subtitle: '', // ARRUMAR -----------------------------------------------------------------------
+          author: 'Felipe Buzzi',
         },
       },
     ];
 
     render(<App postsPagination={postsPagination} />);
 
-    screen.getByText('Como utilizar Hooks');
+    screen.getByText('Código Limpo: reflexão e prática');
     const loadMorePostsButton = screen.getByText('Carregar mais posts');
 
     fireEvent.click(loadMorePostsButton);
@@ -200,7 +213,9 @@ describe('Home', () => {
       { timeout: 200 }
     );
 
-    screen.getByText('Criando um app CRA do zero');
+    screen.getByText(
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+    );
   });
 
   it('should not be able to load more posts if not available', async () => {
@@ -209,8 +224,10 @@ describe('Home', () => {
 
     render(<App postsPagination={postsPagination} />);
 
-    screen.getByText('Como utilizar Hooks');
-    screen.getByText('Criando um app CRA do zero');
+    screen.getByText('Código Limpo: reflexão e prática');
+    screen.getByText(
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+    );
     const loadMorePostsButton = screen.queryByText('Carregar mais posts');
 
     expect(loadMorePostsButton).not.toBeInTheDocument();

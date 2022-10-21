@@ -249,15 +249,19 @@ describe('Post', () => {
 
     render(<Post post={postProps} />);
 
-    screen.getByText('Como utilizar Hooks');
-    screen.getByText('25 mar 2021');
-    screen.getByText('Joseph Oliveira');
-    screen.getByText('4 min');
+    screen.getByText('Código Limpo: reflexão e prática');
+    screen.getByText('18 de outubro de 2022');
+    screen.getByText('Felipe Buzzi');
+    screen.getByText('4min');
 
-    screen.getByText('Proin et varius');
-    screen.getByText(/Nullam dolor sapien/);
-    screen.getByText('Cras laoreet mi');
-    screen.getByText(/Ut varius quis velit sed cursus/);
+    screen.getByText(
+      'Desenvolvimento de software possui diversas bases teóricas que definem o comportamento da programação e ajudam a padronizar métodos de criação.'
+    );
+    screen.getByText('Robert C. Martin escreveu o livro “Clean Code” em 2009');
+    screen.getByText('Não há regras, nem leis, nem manuais');
+    screen.getByText(
+      'O desafio aqui é me propor a explicar para você o que é código limpo da maneira mais objetiva possível'
+    );
   });
 
   it('should be able to render loading message if fallback', () => {

@@ -35,30 +35,30 @@ const mockedGetByTypeReturn = {
   results: [
     {
       uid: 'codigo-limpo-reflexao-e-pratica',
-      first_publication_date: '2022-10-18T09:17:00+0000', // ARRUMAR HORA --------------------------------------------------------------------------------
+      first_publication_date: '2022-10-18T20:48:54+0000',
       data: {
         title: 'Código Limpo: reflexão e prática',
-        subtitle: '', // ARRUMAR -----------------------------------------------------------------------
+        // subtitle: '', //
         author: 'Felipe Buzzi',
       },
     },
     {
       uid: 'comunidade-guia-pratico-de-como-contribuir-para-o',
-      first_publication_date: '2022-10-11T06:13:00+0000',
+      first_publication_date: '2022-10-06T17:10:26+0000',
       data: {
         title:
           'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia',
-        subtitle: '',
+        // subtitle: '',
         author: 'Felipe Buzzi',
       },
     },
     {
       uid: 'as-principais-licoes-e-dicas-compiladas',
-      first_publication_date: '2022-10-17T10:18:00+0000',
+      first_publication_date: '2022-10-06T17:08:03+0000',
       data: {
         title:
           'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
-        subtitle: '',
+        // subtitle: '',
         author: 'Camila Coelho',
       },
     },
@@ -103,11 +103,11 @@ describe('Home', () => {
             results: [
               {
                 uid: 'as-principais-licoes-e-dicas-compiladas',
-                first_publication_date: '2022-10-17T10:18:00+0000',
+                first_publication_date: '2022-10-06T17:08:03+0000',
                 data: {
                   title:
                     'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
-                  subtitle: '',
+                  // subtitle: '',
                   author: 'Camila Coelho',
                 },
               },
@@ -145,14 +145,16 @@ describe('Home', () => {
     screen.getByText(
       'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
     );
-    screen.getByText(''); // pegar texto do post
-    screen.getByText(''); // pegar data
+    screen.getByText(
+      'Existem alguns princípios da programação que historicamente afetam o desenvolvimento tecnológico de forma positiva.'
+    );
+    screen.getByText('06 de outubro de 2022');
     screen.getByText('Felipe Buzzi');
 
     screen.getByText(
       'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.'
     );
-    screen.getByText(''); // pegar data
+    screen.getByText('06 de outubro de 2022');
     screen.getByText('Camila Coelho');
   });
 
@@ -190,10 +192,10 @@ describe('Home', () => {
     postsPagination.results = [
       {
         uid: 'codigo-limpo-reflexao-e-pratica',
-        first_publication_date: '2022-10-18T09:17:00+0000', // ARRUMAR HORA --------------------------------------------------------------------------------
+        first_publication_date: '2022-10-18T20:48:54+0000',
         data: {
           title: 'Código Limpo: reflexão e prática',
-          subtitle: '', // ARRUMAR -----------------------------------------------------------------------
+          // subtitle: '', //
           author: 'Felipe Buzzi',
         },
       },

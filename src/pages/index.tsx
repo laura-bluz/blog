@@ -44,6 +44,15 @@ interface Post1 {
 
 interface PostPagination {
   next_page: string;
+  results: {
+    uid: string;
+    first_publication_date: string;
+    data: {
+      title: string;
+      subtitle: string;
+      author: string;
+    }[];
+  };
 }
 
 export default function Home({

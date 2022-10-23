@@ -18,18 +18,20 @@ import { title } from 'process';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
 import { PrismicDocument } from '@prismicio/types';
-interface PostProps {
-  post: {
-    slug: string;
-    title: string;
-    content: string;
-    updatedAt: string;
-    createdAt: string;
-    autor: string;
-    tempoLeitura: string;
-  };
-  anterior: PrismicDocument<Record<string, any>, string, string>;
-  proximo: PrismicDocument<Record<string, any>, string, string>;
+
+export interface IPost {
+  slug: string;
+  title: string;
+  content: string;
+  updatedAt: string;
+  createdAt: string;
+  autor: string;
+  tempoLeitura: string;
+}
+export interface PostProps {
+  post: IPost;
+  anterior?: PrismicDocument<Record<string, any>, string, string>;
+  proximo?: PrismicDocument<Record<string, any>, string, string>;
 }
 const linkResolver = doc => {
   return '/' + doc.uid;
@@ -164,7 +166,7 @@ export const getStaticProps: GetStaticProps = async context => {
     autor: doc.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
     tempoLeitura: tempoLeitura.toString().concat('min'),
   };
-
+  console.log('post', post);
   const proximoPost = await prismic.query(
     Prismic.Predicates.at('document.type', 'publication'),
     {

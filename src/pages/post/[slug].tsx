@@ -1,23 +1,21 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { RichText } from 'prismic-dom';
+// import React from 'react';
+import Link from 'next/link';
+import * as Prismic from '@prismicio/client';
+import { PrismicDocument } from '@prismicio/types';
 import { getPrismicClient } from '../../services/prismic';
 // import commonStyles from '../../styles/common.module.scss';
+import Utterances from '../../components/Comentario';
 import styles from './post.module.scss';
-import logo from '../../../public/Logo.svg';
 import banner from '../../../public/Banner.png';
 import usuario from '../../../public/usuario.png';
 import calendario from '../../../public/calendario.png';
 import relogio from '../../../public/relogio.png';
 import Header from '../../components/Header';
-import React from 'react';
-import Utterances from '../../components/Comentario';
-import { useRouter } from 'next/router';
-import { title } from 'process';
-import Link from 'next/link';
-import * as Prismic from '@prismicio/client';
-import { PrismicDocument } from '@prismicio/types';
 
 export interface IPost {
   slug: string;
@@ -33,9 +31,9 @@ export interface PostProps {
   anterior?: PrismicDocument<Record<string, any>, string, string>;
   proximo?: PrismicDocument<Record<string, any>, string, string>;
 }
-const linkResolver = doc => {
-  return '/' + doc.uid;
-};
+// const linkResolver: (doc: any) => string = doc => {
+//   return `/${doc.uid}`;
+// };
 export default function Post({
   post,
   anterior,
@@ -92,7 +90,7 @@ export default function Post({
             />
           </div>
         </article>
-        <div className={styles.linha}></div>
+        <div className={styles.linha} />
         <div className={styles.align}>
           {anterior ? (
             <div className={styles.alignFilhos}>
@@ -104,7 +102,7 @@ export default function Post({
               </Link>
             </div>
           ) : (
-            <div></div>
+            <div />
           )}
           {proximo ? (
             <div className={styles.alignFilhos}>
@@ -116,19 +114,19 @@ export default function Post({
               </Link>
             </div>
           ) : (
-            <div></div>
+            <div />
           )}
         </div>
 
-        <br></br>
+        <br />
       </main>
 
-      <Utterances repo="laura-bluz/blog"></Utterances>
+      <Utterances repo="laura-bluz/blog" />
     </>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async context => {
+export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
     fallback: 'blocking',
@@ -166,7 +164,7 @@ export const getStaticProps: GetStaticProps = async context => {
     autor: doc.data.autor.find(autor => autor.type === 'paragraph')?.text ?? '',
     tempoLeitura: tempoLeitura.toString().concat('min'),
   };
-  console.log('post', post);
+
   const proximoPost = await prismic.query(
     Prismic.Predicates.at('document.type', 'publication'),
     {

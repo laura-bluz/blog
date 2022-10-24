@@ -7,8 +7,8 @@ import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../services/prismic';
 // import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import usuario from '../../public/usuario.png';
-import calendario from '../../public/calendario.png';
+// import usuario from '../../public/usuario.png';
+// import calendario from '../../public/calendario.png';
 import Header from '../components/Header';
 
 type Home = {
@@ -77,7 +77,7 @@ JSX.Element {
                   <time>
                     {' '}
                     <Image
-                      src={calendario}
+                      src="/calendario.png"
                       className="calendario"
                       alt="calendario"
                       width={20}
@@ -88,7 +88,7 @@ JSX.Element {
                   <p>
                     {' '}
                     <Image
-                      src={usuario}
+                      src="/usuario.png"
                       className="usuario"
                       alt="usuario"
                       width={20}

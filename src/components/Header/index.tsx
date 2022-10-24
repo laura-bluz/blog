@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import logo from '../../../public/Logo.svg';
+// import logo from '../../../public/Logo.svg';
 import styles from './header.module.scss';
 
 export default function Header(): JSX.Element {
@@ -11,7 +11,7 @@ export default function Header(): JSX.Element {
         <Link href="/">
           <button type="button">
             <Image
-              src={logo}
+              src="/Logo.svg"
               className={styles.logo}
               alt="logo"
               width={150}

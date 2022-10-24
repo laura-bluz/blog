@@ -7,8 +7,8 @@ import { RichText } from 'prismic-dom';
 import banner from '../../../public/Banner.png';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
-import usuario from '../../../public/usuario.png';
-import calendario from '../../../public/calendario.png';
+// import usuario from '../../../public/usuario.png';
+// import calendario from '../../../public/calendario.png';
 import Header from '../../components/Header';
 
 type Post = {
@@ -52,7 +52,7 @@ export default function Post({ posts }: PostsProps): JSX.Element {
                     <time>
                       {' '}
                       <Image
-                        src={calendario}
+                        src="/calendario.png"
                         className="calendario"
                         alt="calendario"
                         width={20}
@@ -63,7 +63,7 @@ export default function Post({ posts }: PostsProps): JSX.Element {
                     <p>
                       {' '}
                       <Image
-                        src={usuario}
+                        src="/usuario.png"
                         className="usuario"
                         alt="usuario"
                         width={20}

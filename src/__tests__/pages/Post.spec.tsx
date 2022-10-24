@@ -69,7 +69,7 @@ const mockedPostByGetStaticProps: IPost = {
     'um pouco distantes do <strong>“tempo da prática”</strong>. Os princípios do Código Limpo fazem parte de ' +
     'um conjunto de filosofias extremamente importantes e populares no ecossistema. No entanto, principalmente entre iniciantes, ' +
     'ainda existem dúvidas sobre o que é, afinal, um “código limpo” e o que ele representa na prática e na lógica do mercado.<br />' +
-    ' <strong>Robert C. Martin<br /></strong>Robert C. Martin escreveu o livro “Clean Code” em 2009, um pouco antes da virada da década, ' +
+    '<strong>Robert C. Martin<br /></strong>Robert C. Martin escreveu o livro “Clean Code” em 2009, um pouco antes da virada da década, ' +
     'e desde então serve como referencial fundamental para a consolidação de novos projetos que surgiram entre 2010 e 2020.<br />' +
     'Além de ter uma bibliografia referente na área, Robert foi um dos co-autores do manifesto ágil. Ele também definiu os cinco princípios de design ' +
     '<a  href="https://sites.google.com/site/unclebobconsultingllc/getting-a-solid-start">SOLID</a>, com o objetivo de tornar o desenvolvimento de ' +
@@ -178,11 +178,11 @@ describe('Post', () => {
     screen.getByText('Felipe Buzzi');
     screen.getByText('4min');
 
-    screen.getByText('Robert C. Martin escreveu o livro “Clean Code” em 2009');
     screen.getByText('Não há regras, nem leis, nem manuais');
-    screen.getByText(
-      'O desafio aqui é me propor a explicar para você o que é código limpo da maneira mais objetiva possível'
-    );
+    // screen.getByText(
+    //   'No entanto, há pistas que podemos encontrar, entre estudos de erros e acertos,'
+    // );
+    screen.getByText('“tempo da prática”');
   });
 
   // it('should be able to render loading message if fallback', () => {

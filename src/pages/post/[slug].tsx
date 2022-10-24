@@ -11,10 +11,10 @@ import { getPrismicClient } from '../../services/prismic';
 // import commonStyles from '../../styles/common.module.scss';
 import Utterances from '../../components/Comentario';
 import styles from './post.module.scss';
-import banner from '../../../public/Banner.png';
-import usuario from '../../../public/usuario.png';
-import calendario from '../../../public/calendario.png';
-import relogio from '../../../public/relogio.png';
+// import banner from '../../../public/Banner.png';
+// import usuario from '../../../public/usuario.png';
+// import calendario from '../../../public/calendario.png';
+// import relogio from '../../../public/relogio.png';
 import Header from '../../components/Header';
 
 export interface IPost {
@@ -50,7 +50,7 @@ export default function Post({
       <main className={styles.container}>
         <div className={styles.banner}>
           <Image
-            src={banner}
+            src="/Banner.png"
             alt="banner"
             width="100%"
             height={30}
@@ -65,7 +65,7 @@ export default function Post({
               <time>
                 {' '}
                 <Image
-                  src={calendario}
+                  src="/calendario.png"
                   alt="calendario"
                   width={20}
                   height={20}
@@ -74,11 +74,21 @@ export default function Post({
               </time>
               <p className={styles.autor}>
                 {' '}
-                <Image src={usuario} alt="usuario" width={20} height={20} />
+                <Image
+                  src="/usuario.png"
+                  alt="usuario"
+                  width={20}
+                  height={20}
+                />
                 {post.autor}
               </p>
               <p>
-                <Image src={relogio} alt="relogio" width={20} height={20} />
+                <Image
+                  src="/relogio.png"
+                  alt="relogio"
+                  width={20}
+                  height={20}
+                />
                 {post.tempoLeitura}
               </p>
             </div>

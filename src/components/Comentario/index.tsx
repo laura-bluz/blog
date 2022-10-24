@@ -1,5 +1,14 @@
-import React from 'react';
+import { createRef, useEffect } from 'react';
 import styles from './styles.module.scss';
+
+interface IUtterances {
+  repo: string;
+  issueTerm?: string;
+  label?: string;
+  theme?: string;
+  crossOrigin?: string;
+  async?: boolean;
+}
 
 export default function Utterances({
   repo,
@@ -8,10 +17,10 @@ export default function Utterances({
   theme = 'preferred-color-scheme',
   crossOrigin = 'anonymous',
   async = true,
-}): JSX.Element {
-  const rootElm = React.createRef<HTMLDivElement>();
+}: IUtterances): JSX.Element {
+  const rootElm = createRef<HTMLDivElement>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const utterances = document.createElement('script');
 
     // set config to of script element
@@ -24,10 +33,11 @@ export default function Utterances({
       crossOrigin,
       async,
     }).forEach(([key, value]) => {
-      utterances.setAttribute(key, value as any);
+      utterances.setAttribute(key, value as never);
     });
     // attach script element
-    rootElm.current!.appendChild(utterances);
+    rootElm.current.appendChild(utterances);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

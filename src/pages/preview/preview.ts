@@ -1,25 +1,25 @@
 // import { Document } from '@prismicio/client/types/documents';
-import Document from '@prismicio/client';
+// import Document from '@prismicio/client';
 import { GetServerSideProps } from 'next';
 import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../../services/prismic';
 
-interface PostPreviewProps {
-  post: {
-    slug: string;
-    title: string;
-    content: string;
-    updatedAt: string;
-    autor: string;
-  };
-}
+// interface PostPreviewProps {
+//   post: {
+//     slug: string;
+//     title: string;
+//     content: string;
+//     updatedAt: string;
+//     autor: string;
+//   };
+// }
 
-function linkResolver(doc: Document): string {
-  if (doc.contentType === 'posts') {
-    return `/post/${doc.getElementById}`;
-  }
-  return '/';
-}
+// function linkResolver(doc: Document): string {
+//   if (doc.contentType === 'posts') {
+//     return `/post/${doc.getElementById}`;
+//   }
+//   return '/';
+// }
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,

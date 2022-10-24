@@ -1,19 +1,17 @@
 import { render, screen } from '@testing-library/react';
 
 import {
-  GetStaticPropsContext,
+  // GetStaticPropsContext,
   GetStaticPathsContext,
   GetStaticPathsResult,
 } from 'next';
-import { ParsedUrlQuery, parse } from 'querystring';
 
 import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
 import Post, {
-  getStaticProps,
   getStaticPaths,
   IPost,
-  PostProps,
+  // PostProps,
 } from '../../pages/post/[slug]';
 
 // interface Post {
@@ -35,9 +33,9 @@ import Post, {
 //   post: Post;
 // }
 
-interface GetStaticPropsResult {
-  props: PostProps;
-}
+// interface GetStaticPropsResult {
+//   props: PostProps;
+// }
 
 const mockedGetByTypeReturn = {
   results: [

@@ -8,7 +8,7 @@ export default function Utterances({
   theme = 'preferred-color-scheme',
   crossOrigin = 'anonymous',
   async = true,
-}) {
+}): JSX.Element {
   const rootElm = React.createRef<HTMLDivElement>();
 
   React.useEffect(() => {

@@ -19,41 +19,41 @@ type Home = {
 };
 interface HomeProps {
   posts?: Home[];
-  postsPagination: {
-    next_page: string;
-    results: {
-      uid: string;
-      first_publication_date: string;
-      data: {
-        title: string;
-        subtitle: string;
-        author: string;
-      };
-    }[];
-  };
+  // postsPagination: {
+  //   next_page: string;
+  //   results: {
+  //     uid: string;
+  //     first_publication_date: string;
+  //     data: {
+  //       title: string;
+  //       subtitle: string;
+  //       author: string;
+  //     };
+  //   }[];
+  // };
 }
-interface Post1 {
-  uid?: string;
-  first_publication_date: string | null;
-  data: {
-    title: string;
-    subtitle: string;
-    autor: string;
-  };
-}
+// interface Post1 {
+//   uid?: string;
+//   first_publication_date: string | null;
+//   data: {
+//     title: string;
+//     subtitle: string;
+//     autor: string;
+//   };
+// }
 
-interface PostPagination {
-  next_page: string;
-  results: {
-    uid: string;
-    first_publication_date: string;
-    data: {
-      title: string;
-      subtitle: string;
-      author: string;
-    }[];
-  };
-}
+// interface PostPagination {
+//   next_page: string;
+//   results: {
+//     uid: string;
+//     first_publication_date: string;
+//     data: {
+//       title: string;
+//       subtitle: string;
+//       author: string;
+//     }[];
+//   };
+// }
 
 export default function Home({
   posts,
@@ -68,7 +68,7 @@ JSX.Element {
       <main className={styles.container}>
         {/* <Image src={logo} className="logo" alt="logo" width={100} height={20} /> */}
         <div className={styles.posts}>
-          {posts.map((post, index) => (
+          {posts.map(post => (
             <Link href={`/post/${post.slug}`} key={post.slug}>
               <a>
                 <strong>{post.title}</strong>

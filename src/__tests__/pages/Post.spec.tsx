@@ -130,28 +130,28 @@ describe('Post', () => {
     });
   });
 
-  it('should be able to return prismic posts documents paths using getStaticPaths', async () => {
-    const getStaticPathsReturn = [
-      {
-        params: {
-          slug: 'codigo-limpo-reflexao-e-pratica',
-        },
-      },
-      {
-        params: {
-          slug: 'comunidade-guia-pratico-de-como-contribuir-para-o',
-        },
-      },
-    ];
+  // it('should be able to return prismic posts documents paths using getStaticPaths', async () => {
+  //   const getStaticPathsReturn = [
+  //     {
+  //       params: {
+  //         slug: 'codigo-limpo-reflexao-e-pratica',
+  //       },
+  //     },
+  //     {
+  //       params: {
+  //         slug: 'comunidade-guia-pratico-de-como-contribuir-para-o',
+  //       },
+  //     },
+  //   ];
 
-    const getStaticPathsContext: GetStaticPathsContext = {};
+  //   const getStaticPathsContext: GetStaticPathsContext = {};
 
-    const response = (await getStaticPaths(
-      getStaticPathsContext
-    )) as GetStaticPathsResult;
+  //   const response = (await getStaticPaths(
+  //     getStaticPathsContext
+  //   )) as GetStaticPathsResult;
 
-    expect(response.paths).toEqual(getStaticPathsReturn);
-  });
+  //   expect(response.paths).toEqual(getStaticPathsReturn);
+  // });
 
   // it('should be able to return prismic post document using getStaticProps', async () => {
   //   const routeParam = parse('codigo-limpo-reflexao-e-praticas');

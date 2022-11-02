@@ -3,7 +3,7 @@ import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 // import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { RouterContext } from 'react-dom';
-
+import * as Prismic from '@prismicio/client';
 import { getPrismicClient } from '../../services/prismic';
 import App, { getStaticProps } from '../../pages';
 
@@ -66,15 +66,41 @@ const mockedGetByTypeReturn = {
 };
 
 jest.mock('@prismicio/client');
-jest.mock('../../services/prismic');
+// jest.mock('../../services/prismic');
 
 const mockedPrismic = getPrismicClient as jest.Mock;
 const mockedFetch = jest.spyOn(window, 'fetch') as jest.Mock;
 const mockedPush = jest.fn();
+// jest.mock('../../services/prismic', () => {
+
+jest.mock('../../services/prismic');
+
+const query = (): any => [];
+const teste = (): any => {
+  return query;
+};
+
+// });
+// const mockedQuery = getPrismicClient().query as jest.Mock;
+// const teste = {
+//   query: () => [],
+// };
+// const mockPrismic = (): any => {
+//   return teste;
+// };
+// jest.mock('../../services/prismic', () => {
+//   return () => mockPrismic;
+// });
+// import { getPrismicClient } from '../services/prismic';
 let RouterWrapper;
 
 describe('Home', () => {
   beforeAll(() => {
+    getPrismicClient.mockImplementation(() => {
+      return teste;
+    });
+    // (mockedQuery as jest.Mock).mockReturnValue([]);
+
     mockedPush.mockImplementation(() => Promise.resolve());
     const MockedRouterContext = RouterContext as React.Context<unknown>;
     RouterWrapper = ({ children }): JSX.Element => {
@@ -117,25 +143,26 @@ describe('Home', () => {
     });
   });
 
-  // it('should be able to return prismic posts documents using getStaticProps', async () => {
-  //   const postsPaginationReturn = mockedGetByTypeReturn;
+  it('should be able to return prismic posts documents using getStaticProps', async () => {
+    const postsPaginationReturn = mockedGetByTypeReturn;
 
-  //   const getStaticPropsContext: GetStaticPropsContext<ParsedUrlQuery> = {};
+    const getStaticPropsContext: GetStaticPropsContext<ParsedUrlQuery> = {};
 
-  //   const response = (await getStaticProps(
-  //     getStaticPropsContext
-  //   )) as GetStaticPropsResult;
+    const response = (await getStaticProps(
+      getStaticPropsContext
+    )) as GetStaticPropsResult;
 
-  //   expect(response.props.postsPagination.next_page).toEqual(
-  //     postsPaginationReturn.next_page
-  //   );
-  //   expect(response.props.postsPagination.results).toEqual(
-  //     expect.arrayContaining([
-  //       expect.objectContaining(postsPaginationReturn.results[0]),
-  //       expect.objectContaining(postsPaginationReturn.results[1]),
-  //     ])
-  //   );
-  // });
+    expect(response.props.postsPagination.next_page).toEqual(
+      postsPaginationReturn.next_page
+    );
+
+    expect(response.props.postsPagination.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(postsPaginationReturn.results[0]),
+        expect.objectContaining(postsPaginationReturn.results[1]),
+      ])
+    );
+  });
 
   // it('should be able to render posts documents info', () => {
   //   const postsPagination = mockedGetByTypeReturn;

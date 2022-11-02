@@ -23,7 +23,9 @@ import * as Prismic from '@prismicio/client';
 import { IncomingMessage } from 'http';
 // import DefaultClient from '@prismicio/client/';
 
-export function getPrismicClient(req?: IncomingMessage): Prismic.Client {
+export default function getPrismicClient(
+  req?: IncomingMessage
+): Prismic.Client {
   const prismic = Prismic.createClient(process.env.PRISMIC_ENDPOINT, {
     ...req,
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,

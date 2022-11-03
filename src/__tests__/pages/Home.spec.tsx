@@ -1,11 +1,16 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 // import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { RouterContext } from 'react-dom';
 import * as Prismic from '@prismicio/client';
-import { getPrismicClient } from '../../services/prismic';
-import App, { getStaticProps } from '../../pages';
+import getPrismicClient from '../../services/prismic';
+// import { getStaticProps } from '../../pages/post/[slug]';
+import { getStaticProps } from '../../pages/index';
+import Post, {
+  IPost,
+  // PostProps,
+} from '../../pages/post/[slug]';
 
 interface Post {
   uid?: string;
@@ -75,9 +80,9 @@ const mockedPush = jest.fn();
 
 jest.mock('../../services/prismic');
 
-const query = (): any => [];
+const get = (): any => [];
 const teste = (): any => {
-  return query;
+  return get;
 };
 
 // });
@@ -93,13 +98,18 @@ const teste = (): any => {
 // });
 // import { getPrismicClient } from '../services/prismic';
 let RouterWrapper;
-
+const teste2 = { results: [] };
 describe('Home', () => {
   beforeAll(() => {
-    getPrismicClient.mockImplementation(() => {
-      return teste;
+    mockedPrismic.mockImplementation(() => {
+      return {
+        get: () => teste2,
+      };
     });
-    // (mockedQuery as jest.Mock).mockReturnValue([]);
+    (mockedPrismic().get as jest.Mock).mockImplementation(() => {
+      return teste2;
+      // (mockedQuery as jest.Mock).mockReturnValue([]);
+    });
 
     mockedPush.mockImplementation(() => Promise.resolve());
     const MockedRouterContext = RouterContext as React.Context<unknown>;

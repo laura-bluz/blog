@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import * as Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
-import { getPrismicClient } from '../services/prismic';
+import getPrismicClient from '../services/prismic';
 // import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 // import usuario from '../../public/usuario.png';
@@ -112,13 +112,11 @@ JSX.Element {
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
 
-  const response = await prismic.query(
-    Prismic.predicates.at('document.type', 'publication'),
-    {
-      fetch: ['publication.title', 'publication.autor'],
-      pageSize: 100,
-    }
-  );
+  const response = await prismic.get({
+    predicates: Prismic.predicates.at('document.type', 'publication'),
+    fetch: ['publication.title', 'publication.autor'],
+    pageSize: 100,
+  });
 
   const posts = response.results.map(post => {
     return {

@@ -7,9 +7,8 @@ import {
 } from 'next';
 
 import { useRouter } from 'next/router';
-import { getPrismicClient } from '../../services/prismic';
+import getPrismicClient from '../../services/prismic';
 import Post, {
-  getStaticPaths,
   IPost,
   // PostProps,
 } from '../../pages/post/[slug]';

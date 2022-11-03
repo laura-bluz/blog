@@ -1,6 +1,7 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { Query } from '@prismicio/types';
 // import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { RouterContext } from 'react-dom';
 import * as Prismic from '@prismicio/client';
@@ -11,7 +12,11 @@ import Post, {
   IPost,
   // PostProps,
 } from '../../pages/post/[slug]';
+import { IHomeProps } from '../../pages/index';
 
+interface IMyProps {
+  props: IHomeProps;
+}
 interface Post {
   uid?: string;
   first_publication_date: string | null;
@@ -71,19 +76,28 @@ const mockedGetByTypeReturn = {
 };
 
 jest.mock('@prismicio/client');
-// jest.mock('../../services/prismic');
-
-const mockedPrismic = getPrismicClient as jest.Mock;
+// const prismicT = getPrismicClient();
+// const mockedPrismic = prismicT.get() as jest.Fn;
 const mockedFetch = jest.spyOn(window, 'fetch') as jest.Mock;
 const mockedPush = jest.fn();
 // jest.mock('../../services/prismic', () => {
 
 jest.mock('../../services/prismic');
 
-const get = (): any => [];
-const teste = (): any => {
-  return get;
+const response2 = {
+  results: [
+    {
+      uid: 'codigo-limpo-reflexao-e-pratica',
+      first_publication_date: '2022-10-06T20:08:03+0000',
+      last_publication_date: '2022-10-18T01:18:56+0000',
+      data: {
+        title: 'Código Limpo: reflexão e prática',
+        autor: [{ type: 'paragraph', text: 'Felipe Buzzi' }],
+      },
+    },
+  ],
 };
+const get = (): any => response2;
 
 // });
 // const mockedQuery = getPrismicClient().query as jest.Mock;
@@ -98,18 +112,21 @@ const teste = (): any => {
 // });
 // import { getPrismicClient } from '../services/prismic';
 let RouterWrapper;
-const teste2 = { results: [] };
+// const teste2 = { results: [] };
 describe('Home', () => {
   beforeAll(() => {
-    mockedPrismic.mockImplementation(() => {
-      return {
-        get: () => teste2,
-      };
+    (getPrismicClient as jest.Mock).mockImplementation(() => {
+      return { get };
     });
-    (mockedPrismic().get as jest.Mock).mockImplementation(() => {
-      return teste2;
-      // (mockedQuery as jest.Mock).mockReturnValue([]);
-    });
+    // mockedPrismic.mockImplementation(() => {
+    //   return {
+    //     get: () => teste2,
+    //   };
+    // });
+    // (mockedPrismic().get as jest.Mock).mockImplementation(() => {
+    //   return teste2;
+    //   // (mockedQuery as jest.Mock).mockReturnValue([]);
+    // });
 
     mockedPush.mockImplementation(() => Promise.resolve());
     const MockedRouterContext = RouterContext as React.Context<unknown>;
@@ -125,11 +142,11 @@ describe('Home', () => {
       );
     };
 
-    mockedPrismic.mockReturnValue({
-      getByType: () => {
-        return Promise.resolve(mockedGetByTypeReturn);
-      },
-    });
+    // mockedPrismic.mockReturnValue({
+    //   getByType: () => {
+    //     return Promise.resolve(mockedGetByTypeReturn);
+    //   },
+    // });
 
     mockedFetch.mockImplementation(() => {
       return Promise.resolve({
@@ -154,24 +171,31 @@ describe('Home', () => {
   });
 
   it('should be able to return prismic posts documents using getStaticProps', async () => {
-    const postsPaginationReturn = mockedGetByTypeReturn;
+    // const postsPaginationReturn = mockedGetByTypeReturn;
 
     const getStaticPropsContext: GetStaticPropsContext<ParsedUrlQuery> = {};
 
-    const response = (await getStaticProps(
-      getStaticPropsContext
-    )) as GetStaticPropsResult;
+    const response = (await getStaticProps(getStaticPropsContext)) as IMyProps;
 
-    expect(response.props.postsPagination.next_page).toEqual(
-      postsPaginationReturn.next_page
+    expect(response.props.posts[0].title).toEqual(
+      'Código Limpo: reflexão e prática'
     );
 
-    expect(response.props.postsPagination.results).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(postsPaginationReturn.results[0]),
-        expect.objectContaining(postsPaginationReturn.results[1]),
-      ])
+    expect(response.props.posts[1].slug).toEqual(
+      'comunidade-guia-pratico-de-como-contribuir-para-o'
+      // fazer
     );
+    // expect(response.props);
+    // expect(response.props.postsPagination.next_page).toEqual(
+    //   postsPaginationReturn.next_page
+    // );
+
+    // expect(response.props.postsPagination.results).toEqual(
+    //   expect.arrayContaining([
+    //     expect.objectContaining(postsPaginationReturn.results[0]),
+    //     expect.objectContaining(postsPaginationReturn.results[1]),
+    //   ])
+    // );
   });
 
   // it('should be able to render posts documents info', () => {

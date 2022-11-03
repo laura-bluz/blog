@@ -17,7 +17,7 @@ type Home = {
   createdAt: string;
   autor: string;
 };
-interface HomeProps {
+export interface IHomeProps {
   posts?: Home[];
   // postsPagination: {
   //   next_page: string;
@@ -57,7 +57,7 @@ interface HomeProps {
 
 export default function Home({
   posts,
-}: HomeProps): // { results }: PostPagination
+}: IHomeProps): // { results }: PostPagination
 JSX.Element {
   return (
     <>
@@ -112,12 +112,12 @@ JSX.Element {
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
 
-  const response = await prismic.get({
+  const response = await prismic?.get({
     predicates: Prismic.predicates.at('document.type', 'publication'),
     fetch: ['publication.title', 'publication.autor'],
     pageSize: 100,
   });
-
+  console.log('responseNovo', response.results[0].slugs);
   const posts = response.results.map(post => {
     return {
       slug: post.uid,

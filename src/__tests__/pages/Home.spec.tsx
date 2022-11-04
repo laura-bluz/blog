@@ -1,9 +1,10 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor, render } from '@testing-library/react';
 import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { Query } from '@prismicio/types';
 // import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { RouterContext } from 'react-dom';
+import App from 'next/app';
 import * as Prismic from '@prismicio/client';
 import getPrismicClient from '../../services/prismic';
 // import { getStaticProps } from '../../pages/post/[slug]';
@@ -13,6 +14,7 @@ import Post, {
   // PostProps,
 } from '../../pages/post/[slug]';
 import { IHomeProps } from '../../pages/index';
+import Home from '../../pages/index';
 
 interface IMyProps {
   props: IHomeProps;
@@ -23,7 +25,7 @@ interface Post {
   data: {
     title: string;
     subtitle: string;
-    author: string;
+    autor: string;
   };
 }
 
@@ -75,6 +77,13 @@ const mockedGetByTypeReturn = {
   ],
 };
 
+const mockedPostByGetStaticProps: IMyProps = {
+  slug: 'codigo-limpo-reflexao-e-pratica',
+  title: 'Código Limpo: reflexão e prática',
+  createdAt: '18 de outubro de 2022',
+  autor: 'Felipe Buzzi',
+}; // ARRUMAR
+
 jest.mock('@prismicio/client');
 // const prismicT = getPrismicClient();
 // const mockedPrismic = prismicT.get() as jest.Fn;
@@ -89,10 +98,27 @@ const response2 = {
     {
       uid: 'codigo-limpo-reflexao-e-pratica',
       first_publication_date: '2022-10-06T20:08:03+0000',
-      last_publication_date: '2022-10-18T01:18:56+0000',
       data: {
         title: 'Código Limpo: reflexão e prática',
         autor: [{ type: 'paragraph', text: 'Felipe Buzzi' }],
+      },
+    },
+    {
+      uid: 'comunidade-guia-pratico-de-como-contribuir-para-o',
+      first_publication_date: '2022-10-06T17:10:26+0000',
+      data: {
+        title:
+          'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia',
+        autor: [{ type: 'paragraph', text: 'Felipe Buzzi' }],
+      },
+    },
+    {
+      uid: 'as-principais-licoes-e-dicas-compiladas',
+      first_publication_date: '2022-10-06T17:08:03+0000',
+      data: {
+        title:
+          'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
+        autor: [{ type: 'paragraph', text: 'Camila Coelho' }],
       },
     },
   ],
@@ -160,7 +186,6 @@ describe('Home', () => {
                 data: {
                   title:
                     'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.',
-                  // subtitle: '',
                   author: 'Camila Coelho',
                 },
               },
@@ -183,8 +208,10 @@ describe('Home', () => {
 
     expect(response.props.posts[1].slug).toEqual(
       'comunidade-guia-pratico-de-como-contribuir-para-o'
-      // fazer
     );
+
+    expect(response.props.posts[2].autor).toEqual('Camila Coelho');
+
     // expect(response.props);
     // expect(response.props.postsPagination.next_page).toEqual(
     //   postsPaginationReturn.next_page
@@ -198,55 +225,58 @@ describe('Home', () => {
     // );
   });
 
-  // it('should be able to render posts documents info', () => {
-  //   const postsPagination = mockedGetByTypeReturn;
+  it('should be able to render posts documents info', () => {
+    // const postsPagination = mockedGetByTypeReturn;
 
-  //   render(<App postsPagination={postsPagination} />);
+    // render(<App postsPagination={postsPagination} />);
+    const postProps = mockedPostByGetStaticProps;
 
-  //   screen.getByText(
-  //     'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
-  //   );
-  //   screen.getByText(
-  //     'Existem alguns princípios da programação que historicamente afetam o desenvolvimento tecnológico de forma positiva.'
-  //   );
-  //   screen.getByText('06 de outubro de 2022');
-  //   screen.getByText('Felipe Buzzi');
+    render(<Home post={postProps} />);
 
-  //   screen.getByText(
-  //     'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.'
-  //   );
-  //   screen.getByText('06 de outubro de 2022');
-  //   screen.getByText('Camila Coelho');
-  // });
+    screen.getByText(
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+    );
+    screen.getByText(
+      'Existem alguns princípios da programação que historicamente afetam o desenvolvimento tecnológico de forma positiva.'
+    );
+    screen.getByText('06 de outubro de 2022');
+    screen.getByText('Felipe Buzzi');
 
-  // it('should be able to navigate to post page after a click', () => {
-  //   const postsPagination = mockedGetByTypeReturn;
+    screen.getByText(
+      'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.'
+    );
+    screen.getByText('06 de outubro de 2022');
+    screen.getByText('Camila Coelho');
+  });
 
-  //   render(<App postsPagination={postsPagination} />, {
-  //     wrapper: RouterWrapper,
-  //   });
+  it('should be able to navigate to post page after a click', () => {
+    const postsPagination = mockedGetByTypeReturn;
 
-  //   const firstPostTitle = screen.getByText('Código Limpo: reflexão e prática');
-  //   const secondPostTitle = screen.getByText(
-  //     'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
-  //   );
+    render(<App postsPagination={postsPagination} />, {
+      wrapper: RouterWrapper,
+    });
 
-  //   fireEvent.click(firstPostTitle);
-  //   fireEvent.click(secondPostTitle);
+    const firstPostTitle = screen.getByText('Código Limpo: reflexão e prática');
+    const secondPostTitle = screen.getByText(
+      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+    );
 
-  //   expect(mockedPush).toHaveBeenNthCalledWith(
-  //     1,
-  //     '/post/codigo-limpo-reflexao-e-pratica',
-  //     expect.anything(),
-  //     expect.anything()
-  //   );
-  //   expect(mockedPush).toHaveBeenNthCalledWith(
-  //     2,
-  //     '/post/comunidade-guia-pratico-de-como-contribuir-para-o',
-  //     expect.anything(),
-  //     expect.anything()
-  //   );
-  // });
+    fireEvent.click(firstPostTitle);
+    fireEvent.click(secondPostTitle);
+
+    expect(mockedPush).toHaveBeenNthCalledWith(
+      1,
+      '/post/codigo-limpo-reflexao-e-pratica',
+      expect.anything(),
+      expect.anything()
+    );
+    expect(mockedPush).toHaveBeenNthCalledWith(
+      2,
+      '/post/comunidade-guia-pratico-de-como-contribuir-para-o',
+      expect.anything(),
+      expect.anything()
+    );
+  });
 
   // it('should be able to load more posts if available', async () => {
   //   const postsPagination = { ...mockedGetByTypeReturn };

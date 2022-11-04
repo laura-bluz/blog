@@ -117,7 +117,7 @@ export const getStaticProps: GetStaticProps = async () => {
     fetch: ['publication.title', 'publication.autor'],
     pageSize: 100,
   });
-  console.log('responseNovo', response.results[0].slugs);
+
   const posts = response.results.map(post => {
     return {
       slug: post.uid,

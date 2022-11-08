@@ -8,7 +8,7 @@ import App from 'next/app';
 import * as Prismic from '@prismicio/client';
 import getPrismicClient from '../../services/prismic';
 // import { getStaticProps } from '../../pages/post/[slug]';
-import { getStaticProps } from '../../pages/index';
+import { getStaticProps, IHome } from '../../pages/index';
 import Post, {
   IPost,
   // PostProps,
@@ -77,12 +77,14 @@ const mockedGetByTypeReturn = {
   ],
 };
 
-const mockedPostByGetStaticProps: IMyProps = {
-  slug: 'codigo-limpo-reflexao-e-pratica',
-  title: 'Código Limpo: reflexão e prática',
-  createdAt: '18 de outubro de 2022',
-  autor: 'Felipe Buzzi',
-}; // ARRUMAR
+const mockedPostByGetStaticProps: IHome[] = [
+  {
+    slug: 'codigo-limpo-reflexao-e-pratica',
+    title: 'Código Limpo: reflexão e prática',
+    createdAt: '18 de outubro de 2022',
+    autor: 'Felipe Buzzi',
+  },
+];
 
 jest.mock('@prismicio/client');
 // const prismicT = getPrismicClient();
@@ -231,22 +233,11 @@ describe('Home', () => {
     // render(<App postsPagination={postsPagination} />);
     const postProps = mockedPostByGetStaticProps;
 
-    render(<Home post={postProps} />);
+    render(<Home posts={postProps} />);
 
-    screen.getByText(
-      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
-    );
-    screen.getByText(
-      'Existem alguns princípios da programação que historicamente afetam o desenvolvimento tecnológico de forma positiva.'
-    );
-    screen.getByText('06 de outubro de 2022');
+    screen.getByText('Código Limpo: reflexão e prática');
+    screen.getByText('18 de outubro de 2022');
     screen.getByText('Felipe Buzzi');
-
-    screen.getByText(
-      'As principais lições e dicas compiladas para quem está começando na programação ou migrando para a área.'
-    );
-    screen.getByText('06 de outubro de 2022');
-    screen.getByText('Camila Coelho');
   });
 
   it('should be able to navigate to post page after a click', () => {

@@ -11,14 +11,14 @@ import styles from './home.module.scss';
 // import calendario from '../../public/calendario.png';
 import Header from '../components/Header';
 
-type Home = {
+export interface IHome {
   slug: string;
   title: string;
   createdAt: string;
   autor: string;
-};
+}
 export interface IHomeProps {
-  posts?: Home[];
+  posts?: IHome[];
   // postsPagination: {
   //   next_page: string;
   //   results: {

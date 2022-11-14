@@ -240,34 +240,34 @@ describe('Home', () => {
     screen.getByText('Felipe Buzzi');
   });
 
-  it('should be able to navigate to post page after a click', () => {
-    const postsPagination = mockedGetByTypeReturn;
+  // it('should be able to navigate to post page after a click', () => {
+  //   const postsPagination = mockedGetByTypeReturn;
 
-    render(<App postsPagination={postsPagination} />, {
-      wrapper: RouterWrapper,
-    });
+  //   render(<App postsPagination={postsPagination} />, {
+  //     wrapper: RouterWrapper,
+  //   });
 
-    const firstPostTitle = screen.getByText('Código Limpo: reflexão e prática');
-    const secondPostTitle = screen.getByText(
-      'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
-    );
+  //   const firstPostTitle = screen.getByText('Código Limpo: reflexão e prática');
+  //   const secondPostTitle = screen.getByText(
+  //     'Comunidade: guia prático de como contribuir para o ecossistema de tecnologia'
+  //   );
 
-    fireEvent.click(firstPostTitle);
-    fireEvent.click(secondPostTitle);
+  //   fireEvent.click(firstPostTitle);
+  //   fireEvent.click(secondPostTitle);
 
-    expect(mockedPush).toHaveBeenNthCalledWith(
-      1,
-      '/post/codigo-limpo-reflexao-e-pratica',
-      expect.anything(),
-      expect.anything()
-    );
-    expect(mockedPush).toHaveBeenNthCalledWith(
-      2,
-      '/post/comunidade-guia-pratico-de-como-contribuir-para-o',
-      expect.anything(),
-      expect.anything()
-    );
-  });
+  //   expect(mockedPush).toHaveBeenNthCalledWith(
+  //     1,
+  //     '/post/codigo-limpo-reflexao-e-pratica',
+  //     expect.anything(),
+  //     expect.anything()
+  //   );
+  //   expect(mockedPush).toHaveBeenNthCalledWith(
+  //     2,
+  //     '/post/comunidade-guia-pratico-de-como-contribuir-para-o',
+  //     expect.anything(),
+  //     expect.anything()
+  //   );
+  // });
 
   // it('should be able to load more posts if available', async () => {
   //   const postsPagination = { ...mockedGetByTypeReturn };

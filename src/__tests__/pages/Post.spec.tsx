@@ -189,7 +189,7 @@ describe('Post', () => {
   //     isFallback: true,
   //   });
 
-  //   const postProps = mockedGetByUIDReturn;
+  //   const postProps = mockedGetByTypeReturn;
 
   //   render(<Post post={postProps} />);
 

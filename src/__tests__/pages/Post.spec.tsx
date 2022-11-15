@@ -129,44 +129,6 @@ describe('Post', () => {
     });
   });
 
-  // it('should be able to return prismic posts documents paths using getStaticPaths', async () => {
-  //   const getStaticPathsReturn = [
-  //     {
-  //       params: {
-  //         slug: 'codigo-limpo-reflexao-e-pratica',
-  //       },
-  //     },
-  //     {
-  //       params: {
-  //         slug: 'comunidade-guia-pratico-de-como-contribuir-para-o',
-  //       },
-  //     },
-  //   ];
-
-  //   const getStaticPathsContext: GetStaticPathsContext = {};
-
-  //   const response = (await getStaticPaths(
-  //     getStaticPathsContext
-  //   )) as GetStaticPathsResult;
-
-  //   expect(response.paths).toEqual(getStaticPathsReturn);
-  // });
-
-  // it('should be able to return prismic post document using getStaticProps', async () => {
-  //   const routeParam = parse('codigo-limpo-reflexao-e-praticas');
-
-  //   const postReturn = mockedGetByUIDReturn;
-  //   const getStaticPropsContext: GetStaticPropsContext<ParsedUrlQuery> = {
-  //     params: routeParam,
-  //   };
-
-  //   const response = (await getStaticProps(
-  //     getStaticPropsContext
-  //   )) as GetStaticPropsResult;
-
-  //   expect(response.props.post).toEqual(expect.objectContaining(postReturn));
-  // });
-
   it('should be able to render post document info', () => {
     const postProps = mockedPostByGetStaticProps;
 
@@ -178,9 +140,6 @@ describe('Post', () => {
     screen.getByText('4min');
 
     screen.getByText('Não há regras, nem leis, nem manuais');
-    // screen.getByText(
-    //   'No entanto, há pistas que podemos encontrar, entre estudos de erros e acertos,'
-    // );
     screen.getByText('“tempo da prática”');
   });
 

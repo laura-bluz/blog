@@ -23,6 +23,7 @@
     "@prismicio/react": "^2.5.0",
     "@prismicio/slice-simulator-react": "^0.2.2",
     "@prismicio/types": "^0.1.27",
+    "@react-navigation/native": "^6.0.13",
     "@types/babel__core": "^7.1.19",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "date-fns": "^2.19.0",
